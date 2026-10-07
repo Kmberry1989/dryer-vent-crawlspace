@@ -29,12 +29,6 @@
   }
   .wrap{max-width:46rem;margin:0 auto;padding:1rem 1.25rem 4rem}
   header.hero{padding:2.5rem 0 1.5rem;text-align:center}
-  .eyebrow{
-    display:inline-block;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
-    font-size:1rem;font-weight:700;letter-spacing:.04em;
-    color:var(--accent-dark);background:#e2f2f0;border-radius:999px;
-    padding:.35rem 1rem;margin-bottom:1rem;
-  }
   h1{
     font-size:2.4rem;line-height:1.15;margin:.25rem 0 1rem;
     color:#fff;background:linear-gradient(160deg,#0f766e,#14532d);
@@ -55,7 +49,14 @@
     font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
   }
   .rb-full{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center}
-  .readerbar .status{flex:1 1 100%;font-size:1rem;color:#e5e7eb;min-height:1.4em}
+  .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .transport{display:flex;gap:.5rem;flex:1 1 100%}
+  .transport button{flex:1 1 0}
+  .btn-play{background:var(--accent);color:#fff}
+  .btn-play:hover{background:var(--accent-dark)}
+  .btn-pause{background:#4b5563;color:#fff}
+  .btn-pause:hover{background:#374151}
+  button:disabled{opacity:.45;cursor:default}
   button{
     font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
     font-size:1.15rem;font-weight:700;cursor:pointer;
@@ -70,7 +71,6 @@
   .speed span{font-size:1rem;color:#e5e7eb}
   .speed button{background:#374151;color:#fff;font-size:1rem;padding:.6rem .9rem;min-height:48px}
   .speed button[aria-pressed="true"]{background:var(--accent)}
-  .voicetip{flex:1 1 100%;font-size:.95rem;color:#d1d5db}
   .rb-mini{display:none}
   .rb-play{display:none}
   /* collapsed: small floating button, out of the way */
@@ -88,6 +88,7 @@
   #readerbar:not(.is-sheet) .btn-collapse{display:none}
   .btn-collapse{background:#374151;color:#fff;flex:1 1 100%}
   .rb-play .btn-expand{background:#374151;color:#fff;min-height:44px;padding:.5rem .9rem;font-size:1rem}
+  .rb-play .btn-pause{background:#4b5563;color:#fff;min-height:44px;padding:.5rem .8rem;font-size:1rem}
   /* playing: slim strip pinned to the top */
   #readerbar.is-playing{padding:.5rem .8rem;border-radius:0 0 .8rem .8rem}
   #readerbar.is-playing .rb-full,#readerbar.is-playing .rb-mini{display:none}
@@ -180,20 +181,22 @@
 
   <div id="readerbar" class="readerbar" role="region" aria-label="Read aloud controls">
     <div class="rb-full">
-      <div class="status" id="readerStatus" aria-live="polite">Press &ldquo;Read everything to me&rdquo; and this page will read itself aloud, word by word.</div>
-      <button class="btn-read" id="btnReadAll" type="button">&#128266; Read everything to me</button>
-      <button class="btn-stop" id="btnStop" type="button" disabled>&#9632; Stop</button>
+      <div class="sr-only" id="readerStatus" aria-live="polite"></div>
+      <div class="transport" role="group" aria-label="Reading controls">
+        <button class="btn-play" id="btnPlay" type="button">&#9654; Play</button>
+        <button class="btn-pause" id="btnPause" type="button" disabled>&#10074;&#10074; Pause</button>
+        <button class="btn-stop" id="btnStop" type="button" disabled>&#9632; Stop</button>
+      </div>
       <div class="speed" role="group" aria-label="Reading speed">
-        <span>Speed:</span>
         <button type="button" data-rate="0.85" aria-pressed="false">Slower</button>
         <button type="button" data-rate="0.95" aria-pressed="true">Normal</button>
         <button type="button" data-rate="1.18" aria-pressed="false">Faster</button>
       </div>
-      <div class="voicetip">Warmest voice on iPhone: download &ldquo;Ava&rdquo; in Settings &rarr; Accessibility &rarr; Spoken Content &rarr; Voices &rarr; English. She&rsquo;ll be picked automatically.</div>
       <button class="btn-collapse" id="btnCollapse" type="button">&#10005; Collapse</button>
     </div>
     <div class="rb-mini"><button id="btnMini" type="button" aria-label="Open read-aloud controls">&#128266;</button></div>
     <div class="rb-play">
+      <button class="btn-pause" id="btnPausePlay" type="button" aria-label="Pause reading">&#10074;&#10074;</button>
       <button class="btn-stop" id="btnStopPlay" type="button" aria-label="Stop reading">&#9632;</button>
       <div class="pstatus" id="playStatus"></div>
       <div class="ptitle" id="playTitle"></div>
@@ -204,7 +207,6 @@
   <div class="no-speech" id="noSpeech">Your browser can&rsquo;t read aloud, so the &ldquo;listen&rdquo; buttons are hidden. Everything below is written in large print so it is easy to read.</div>
 
   <header class="hero">
-    <span class="eyebrow">For Mom &mdash; please read, or press play and listen</span>
     <h1>Mom, Your Dryer Vent Needs Attention</h1>
     <p class="lede">The complete guide: what is happening under the house, what it can do to health and home, what medical research says about your situation, and who near Logansport can fix it.</p>
   </header>
@@ -372,35 +374,35 @@
 
     <section class="card" data-read>
       <h2><span class="tag">16</span>Who can fix this: reputable companies near Logansport</h2>
-      <p>These are real companies that serve Logansport, Indiana (46947), verified from public listings in October 2026. <strong>Call two or three for quotes.</strong> Tell each one: (1) the dryer vent must be reconnected to the outside with a damper, per code; (2) the crawl space needs mold testing and remediation; (3) ask what keeps it from coming back &mdash; encapsulation or a dehumidifier.</p>
+      <p>These are real companies that serve Logansport, Indiana (46947). Review ratings below were checked in October 2026. <strong>Call two or three for quotes.</strong> Tell each one: (1) the dryer vent must be reconnected to the outside with a damper, per code; (2) the crawl space needs mold testing and remediation; (3) ask what keeps it from coming back &mdash; encapsulation or a dehumidifier.</p>
       <div class="biz">
         <h3>King&rsquo;s Cleaning Solutions</h3>
-        <p><strong>Dryer vent cleaning.</strong> Based in Kokomo, serves Logansport. 5.0 stars from 15 reviews; bonded, certified, and insured. Also does air-duct cleaning.</p>
+        <p><strong>Dryer vent cleaning.</strong> Based in Kokomo, serves Logansport. <strong>5.0 stars from 15 customer reviews</strong>; bonded, certified, and insured. Also does air-duct cleaning.</p>
         <p class="bcontact"><a href="tel:+17656985096">(765) 698-5096</a> &middot; <a href="https://kingscleaningsolutions.com/dryer-vent-cleaning-services-logansport-in/">kingscleaningsolutions.com</a></p>
       </div>
       <div class="biz">
         <h3>Hazvet LLC</h3>
-        <p><strong>Mold testing &amp; remediation.</strong> Local, veteran-owned, at 2021 E. Broadway, Logansport, IN 46947. State-licensed for mold testing, remediation, and contracting.</p>
+        <p><strong>Mold testing &amp; remediation.</strong> Local, veteran-owned, at 2021 E. Broadway, Logansport, IN 46947. State-licensed for mold testing, remediation, and contracting. <strong>No public customer reviews found</strong> as of October 2026 &mdash; ask for references and proof of insurance before hiring.</p>
         <p class="bcontact"><a href="tel:+15745167577">(574) 516-7577</a></p>
       </div>
       <div class="biz">
         <h3>PuroClean of Lafayette</h3>
-        <p><strong>Mold remediation &amp; crawl-space moisture.</strong> Certified restoration company serving the Logansport area. 24/7 emergency response.</p>
+        <p><strong>Mold remediation &amp; crawl-space moisture.</strong> Certified restoration company serving the Logansport area. <strong>5.0 stars from 12 reviews</strong> (Birdeye). 24/7 emergency response.</p>
         <p class="bcontact"><a href="tel:+17657014242">(765) 701-4242</a> &middot; <a href="https://www.puroclean.com/lafayette-in-puroclean-lafayette/service-areas/logansport/mold-remediation-in-logansport-in/">puroclean.com</a></p>
       </div>
       <div class="biz">
         <h3>Acculevel</h3>
-        <p><strong>Crawl-space encapsulation (prevention).</strong> Serves Logansport. 4.8 out of 5 from more than 2,000 reviews. Seals the crawl space against moisture for good.</p>
-        <p class="bcontact"><a href="https://acculevel.com/indiana/logansport/crawl-space-encapsulation-logansport-in/">acculevel.com</a></p>
+        <p><strong>Crawl-space encapsulation (prevention).</strong> Serves Logansport. <strong>A+ BBB rating; 4.8 out of 5 from more than 2,000 customer reviews.</strong> Seals the crawl space against moisture for good.</p>
+        <p class="bcontact"><a href="tel:+18669531501">(866) 953-1501</a> &middot; <a href="https://acculevel.com/indiana/logansport/crawl-space-encapsulation-logansport-in/">acculevel.com</a></p>
       </div>
       <div class="biz">
         <h3>Indiana Foundation Service</h3>
-        <p><strong>Crawl-space encapsulation (prevention).</strong> Serves Kokomo and the surrounding area. A+ BBB rating; 4.7 from over 1,500 reviews. Free inspections.</p>
+        <p><strong>Crawl-space encapsulation (prevention).</strong> Serves Kokomo and the surrounding area. <strong>A+ BBB rating; 4.7 from over 1,500 reviews.</strong> Free inspections.</p>
         <p class="bcontact"><a href="https://www.indianafoundation.com/service-areas/crawl-space-encapsulation-kokomo-in/">indianafoundation.com</a></p>
       </div>
       <div class="biz">
         <h3>Basement Systems of Indiana</h3>
-        <p><strong>Crawl-space encapsulation (prevention).</strong> Vapor barriers, dehumidifiers, and sump systems. Free estimates.</p>
+        <p><strong>Crawl-space encapsulation (prevention).</strong> Vapor barriers, dehumidifiers, and sump systems. <strong>4.7 stars from 61 reviews</strong> (HomeAdvisor). Free estimates.</p>
         <p class="bcontact"><a href="tel:+18443408064">1-844-340-8064</a> &middot; <a href="https://www.basementsystemsofindiana.com/">basementsystemsofindiana.com</a></p>
       </div>
       <p>Phone numbers and websites were verified from public listings in October 2026 &mdash; call to confirm current hours before driving over.</p>
@@ -451,12 +453,33 @@
   var synth = window.speechSynthesis || null;
   var bar = document.getElementById('readerbar');
   var statusEl = document.getElementById('readerStatus');
-  var btnAll = document.getElementById('btnReadAll');
+  var btnPlay = document.getElementById('btnPlay');
+  var btnPause = document.getElementById('btnPause');
   var btnStop = document.getElementById('btnStop');
   var btnStopPlay = document.getElementById('btnStopPlay');
+  var btnPausePlay = document.getElementById('btnPausePlay');
   var btnMini = document.getElementById('btnMini');
   var btnCollapse = document.getElementById('btnCollapse');
   var btnExpand = document.getElementById('btnExpand');
+  var paused = false;
+
+  function updateTransport(){
+    var active = reading && !paused;
+    btnPlay.disabled = active;
+    btnPause.disabled = !active;
+    btnStop.disabled = !(reading || paused);
+    btnPausePlay.disabled = !active;
+  }
+
+  function pauseReading(){
+    if(reading && !paused && synth){
+      try{ synth.pause(); }catch(e){}
+      paused = true;
+      playStatus.textContent = 'Paused \u2014 ' + playStatus.textContent;
+      say('Paused. Press play to continue.');
+      updateTransport();
+    }
+  }
   var playStatus = document.getElementById('playStatus');
   var playTitle = document.getElementById('playTitle');
   var cards = Array.prototype.slice.call(document.querySelectorAll('section.card[data-read]'));
@@ -638,15 +661,17 @@
 
   function stopReading(msg){
     stopSpeech();
-    btnStop.disabled = true;
+    paused = false;
     restBar();
-    say(msg || 'Stopped. Press \u201cRead everything to me\u201d to start again.');
+    updateTransport();
+    say(msg || 'Stopped. Press play to start again.');
   }
 
   function startUtterance(prep, index, onend){
     stopSpeech();
     reading = true;
-    btnStop.disabled = false;
+    paused = false;
+    updateTransport();
     var u = new SpeechSynthesisUtterance(prep.spoken);
     u.rate = rate;
     var v = pickVoice();
@@ -664,7 +689,7 @@
         if(!gotBoundary && reading){
           var wi = 2, stepMs = 60000 / (165 * rate);
           prep.fallbackTimer = setInterval(function(){
-            if(!reading) return;
+            if(!reading || paused) return;
             if(wi < prep.spans.length){ setActive(prep, wi); wi++; }
           }, stepMs);
         } else { prep.fallbackTimer = null; }
@@ -719,9 +744,22 @@
     if(synth.getVoices().length === 0 && typeof synth.onvoiceschanged !== 'undefined'){
       synth.onvoiceschanged = function(){ pickVoice(); };
     }
-    btnAll.addEventListener('click', readAll);
+    btnPlay.addEventListener('click', function(){
+      if(paused && synth){
+        try{ synth.resume(); }catch(e){}
+        paused = false;
+        playStatus.textContent = playStatus.textContent.replace(/^Paused \u2014 /, '');
+        say('Resumed.');
+        updateTransport();
+      } else {
+        readAll();
+      }
+    });
+    btnPause.addEventListener('click', pauseReading);
+    btnPausePlay.addEventListener('click', pauseReading);
     btnStop.addEventListener('click', function(){ stopReading(); });
     btnStopPlay.addEventListener('click', function(){ stopReading(); });
+    updateTransport();
     cards.forEach(function(card){
       var b = card.querySelector('.btn-listen');
       if(b) b.addEventListener('click', function(){ readSingle(card); });
