@@ -65,6 +65,7 @@
   .speed span{font-size:1rem;color:#e5e7eb}
   .speed button{background:#374151;color:#fff;font-size:1rem;padding:.6rem .9rem;min-height:48px}
   .speed button[aria-pressed="true"]{background:var(--accent)}
+  .voicetip{flex:1 1 100%;font-size:.95rem;color:#d1d5db}
   /* cards */
   section.card{
     background:var(--card);border:2px solid var(--line);border-radius:1.1rem;
@@ -118,9 +119,10 @@
     <div class="speed" role="group" aria-label="Reading speed">
       <span>Speed:</span>
       <button type="button" data-rate="0.85" aria-pressed="false">Slower</button>
-      <button type="button" data-rate="1" aria-pressed="true">Normal</button>
+      <button type="button" data-rate="0.95" aria-pressed="true">Normal</button>
       <button type="button" data-rate="1.18" aria-pressed="false">Faster</button>
     </div>
+    <div class="voicetip">Warmest voice on iPhone: download &ldquo;Ava&rdquo; in Settings &rarr; Accessibility &rarr; Spoken Content &rarr; Voices &rarr; English. She&rsquo;ll be picked automatically.</div>
   </div>
 
   <div class="no-speech" id="noSpeech">Your browser can&rsquo;t read aloud, so the &ldquo;listen&rdquo; buttons are hidden. Everything below is written in large print so it is easy to read.</div>
@@ -139,20 +141,44 @@
         <img src="assets/dryer-vent-photo.jpg" alt="A disconnected silver dryer duct hanging loose, packed with gray lint, next to a dark round hole in the floor leading into the crawl space">
         <figcaption>The loose duct: you can see the gray lint packed inside it. The dark hole is the opening it pulled away from.</figcaption>
       </figure>
+      <figure>
+        <img src="assets/crawl-3.jpg" alt="Endoscope view from inside the crawl space: the dryer duct from below, coated in lint, with lint strands hanging between wooden floor joists">
+        <figcaption>Inside the crawl space (camera photo): the duct from below, coated in lint, with lint strands hanging between the floor joists.</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/crawl-1.jpg" alt="Endoscope view: heavy gray lint and dust matted thick across crawl space surfaces, with brownish staining">
+        <figcaption>Heavy lint and dust matted thick across the surfaces, with brownish staining where moisture has sat.</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/crawl-2.jpg" alt="Endoscope view: dark blotchy discoloration on crawl space surfaces above matted lint">
+        <figcaption>Dark, blotchy discoloration on the surfaces &mdash; the kind of staining a mold inspector would want to test.</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/crawl-4.jpg" alt="Endoscope close-up: rust-colored staining and crusty buildup on wood and metal in the crawl space">
+        <figcaption>Close-up: rust-colored staining and crusty buildup &mdash; signs of long-term moisture, not a recent leak.</figcaption>
+      </figure>
       <p>The flexible silver duct that should carry your dryer&rsquo;s exhaust to the outside has come disconnected. All the heat, moisture, and lint from every load of laundry is going straight into the dark, enclosed crawl space under your home.</p>
       <p>In cases just like this, the loose lint was still <strong>damp days after the dryer had last been used</strong>. That tells you how much moisture is trapped down there with nowhere to go.</p>
       <div class="listen-row"><button class="btn-listen" type="button">&#128266; Listen to this part</button></div>
     </section>
 
     <section class="card" data-read>
-      <h2><span class="tag">2</span>Fire hazard: lint is extremely flammable</h2>
+      <h2><span class="tag">2</span>How this happened</h2>
+      <p>The vent <strong>used to go outside</strong>, the way it should. Then someone tried to clean the vent pipe out with a water hose &mdash; and the force of the water knocked the pipe loose. From that day on, everything the dryer exhausted went straight under the house instead of outside.</p>
+      <p>Years earlier, an above-ground pool collapsed while it was full of water, and that water seeped down into the crawl space too. So the space under the house has been soaked more than once, and damp ever since.</p>
+      <p>A lint trap was fitted onto the dryer hose as a temporary fix &mdash; but by then, years of damage had already built up. A trap on the hose catches lint. It does nothing about the moisture, and it is not a vent to the outside.</p>
+      <div class="listen-row"><button class="btn-listen" type="button">&#128266; Listen to this part</button></div>
+    </section>
+
+    <section class="card" data-read>
+      <h2><span class="tag">3</span>Fire hazard: lint is extremely flammable</h2>
       <p>Lint burns very easily &mdash; it is one of the most flammable things in a house. Right now it is piling up inside a dark, enclosed space under your home.</p>
       <p>The U.S. Fire Administration reports about <strong>2,900 home clothes dryer fires every year</strong> in the United States &mdash; an estimated 5 deaths, 100 injuries, and 35 million dollars in property damage. The leading cause, at 34 percent, is failure to clean the dryer. Lint buildup in an enclosed space is exactly the kindling those fires start from.</p>
       <div class="listen-row"><button class="btn-listen" type="button">&#128266; Listen to this part</button></div>
     </section>
 
     <section class="card" data-read>
-      <h2><span class="tag">3</span>Mold, including black mold</h2>
+      <h2><span class="tag">4</span>Mold, including black mold</h2>
       <p>Years of hot, damp air circulating under a home is the perfect recipe for mold &mdash; including black mold. Mold needs only moisture and time, and this gives it both.</p>
       <p>According to the Centers for Disease Control and Prevention, exposure to damp and moldy environments can cause a <strong>stuffy nose, sore throat, coughing or wheezing, burning eyes, or skin rash</strong>. People with asthma or mold allergies can have severe reactions. People with weakened immune systems or chronic lung disease can develop lung infections from mold.</p>
       <p>If you have had a lingering cough, congestion, or itchy eyes that never quite go away, this could be part of the reason &mdash; and it is worth telling your doctor about.</p>
@@ -160,27 +186,27 @@
     </section>
 
     <section class="card" data-read>
-      <h2><span class="tag">4</span>The wood under your floors can rot</h2>
+      <h2><span class="tag">5</span>The wood under your floors can rot</h2>
       <p>All that moisture does not just feed mold &mdash; it rots the wood your house sits on. The subfloor and the floor joists can rot <strong>from underneath</strong>, where you cannot see it from inside the house.</p>
       <p>Rotted joists are structural damage. Repairing them costs far more than reconnecting one duct &mdash; which is why this should be fixed before the moisture has years to work.</p>
       <div class="listen-row"><button class="btn-listen" type="button">&#128266; Listen to this part</button></div>
     </section>
 
     <section class="card" data-read>
-      <h2><span class="tag">5</span>Rats and mice move in</h2>
+      <h2><span class="tag">6</span>Rats and mice move in</h2>
       <p>A warm, sheltered crawl space full of soft lint is an invitation to rats and mice. Once rodents settle in under a house, they chew wiring, contaminate insulation, and are very hard to get rid of.</p>
       <div class="listen-row"><button class="btn-listen" type="button">&#128266; Listen to this part</button></div>
     </section>
 
     <section class="card" data-read>
-      <h2><span class="tag">6</span>This is not normal &mdash; and not okay</h2>
+      <h2><span class="tag">7</span>This is not normal &mdash; and not okay</h2>
       <p>A dryer <strong>must</strong> vent to the outside of the building &mdash; never into a crawl space or an attic. That is not an opinion; it is the building code. The International Residential Code, section M1502, says dryer exhaust systems &ldquo;shall convey the moisture to the outdoors,&rdquo; that &ldquo;exhaust ducts shall terminate on the outside of the building,&rdquo; and that air &ldquo;shall not be exhausted into an attic, soffit, ridge vent or crawl space.&rdquo;</p>
       <p>If anyone &mdash; a landlord, a handyman, anyone &mdash; tells you it is fine the way it is, they are wrong. Do not let this get brushed off. You are not being picky.</p>
       <div class="listen-row"><button class="btn-listen" type="button">&#128266; Listen to this part</button></div>
     </section>
 
     <section class="card" data-read>
-      <h2><span class="tag">7</span>What to do about it</h2>
+      <h2><span class="tag">8</span>What to do about it</h2>
       <p><strong>Get maintenance &mdash; or your landlord &mdash; on this as soon as possible.</strong> If you rent, fixing this is the landlord&rsquo;s responsibility, not yours.</p>
       <p><strong>Take photos of it exactly as it is first</strong>, so there is a record of what was wrong before anyone touches it.</p>
       <p>The fix itself &mdash; cleaning the piping, then reconnecting and sealing the duct so all the moisture goes outside &mdash; is <strong>not a big or expensive job</strong> for someone who can get under the house. The outside end needs a proper vent cap with a damper so cold air cannot blow back in.</p>
@@ -189,6 +215,11 @@
     </section>
 
   </main>
+
+  <section class="card">
+    <h2>For family: the health research</h2>
+    <p>I also wrote up what medical research says about long-term mold and lint-dust exposure for someone with Mom&rsquo;s health history &mdash; meant to be shared with her doctor. <a href="health-correlations.html" style="font-weight:bold">Read the research notes &rarr;</a></p>
+  </section>
 
   <div class="sources">
     <p><strong>Where the facts come from:</strong> fire statistics from the <a href="https://www.usfa.fema.gov/prevention/outreach/clothes-dryer.html">U.S. Fire Administration</a> (about 2,900 home dryer fires per year; failure to clean the leading cause at 34%); health effects of mold from the <a href="https://www.cdc.gov/mold-health/about/index.html">Centers for Disease Control and Prevention</a>; venting rules from the <a href="https://codes.iccsafe.org/content/IRC2021P2/chapter-15-exhaust-systems">International Residential Code, Chapter 15 (M1501&ndash;M1502)</a>.</p>
@@ -207,21 +238,34 @@
   var btnAll = document.getElementById('btnReadAll');
   var btnStop = document.getElementById('btnStop');
   var cards = Array.prototype.slice.call(document.querySelectorAll('section.card[data-read]'));
-  var rate = 1;
+  var rate = 0.95;
   var reading = false;
   var currentUtter = null;
 
   function say(text){ return statusEl.textContent = text; }
 
+  /* Friendly voices, ranked: Apple's natural "Ava" first (warm US female;
+     download her on iPhone via Settings > Accessibility > Spoken Content >
+     Voices > English), then Zoe, then the familiar Samantha, then Chrome's
+     natural Google US English voice, then other warm Apple English voices. */
+  var FRIENDLY_VOICES = ['ava','zoe','samantha','google us english','allison',
+    'susan','karen','moira','tessa','fiona','shelley','serena'];
   function pickVoice(){
     if(!synth) return null;
     var voices = synth.getVoices();
     if(!voices.length) return null;
-    var us = voices.filter(function(v){ return v.lang && v.lang.toLowerCase().indexOf('en-us') === 0; });
-    var pool = us.length ? us : voices.filter(function(v){ return v.lang && v.lang.toLowerCase().indexOf('en') === 0; });
-    pool = pool.length ? pool : voices;
-    var named = pool.filter(function(v){ return /samantha|google us english|zira|aria|jenny|david|mark/i.test(v.name); });
-    return (named[0] || pool[0] || null);
+    function en(v){ return (v.lang || '').toLowerCase().indexOf('en') === 0; }
+    function id(v){ return ((v.name || '') + ' ' + (v.voiceURI || '')).toLowerCase(); }
+    var i, j;
+    for(i = 0; i < FRIENDLY_VOICES.length; i++){
+      for(j = 0; j < voices.length; j++){
+        if(en(voices[j]) && id(voices[j]).indexOf(FRIENDLY_VOICES[i]) !== -1) return voices[j];
+      }
+    }
+    var us = voices.filter(function(v){ return (v.lang || '').toLowerCase().indexOf('en-us') === 0; });
+    if(us.length) return us[0];
+    var anyEn = voices.filter(en);
+    return anyEn[0] || voices[0] || null;
   }
 
   function stopReading(silent){
@@ -263,6 +307,8 @@
     stopReading(true);
     reading = true;
     btnStop.disabled = false;
+    var vv = pickVoice();
+    say('Reading everything to you' + (vv && vv.name ? ' with ' + vv.name : '') + '.');
     readCard(0);
   }
 
