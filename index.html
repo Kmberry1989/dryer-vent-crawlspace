@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mom, Your Dryer Vent Needs Attention</title>
-<meta name="description" content="Why a disconnected dryer vent blowing into a crawl space is a fire, mold, rot, and pest hazard — and what to do about it. With read-aloud.">
+<title>Mom, Your Dryer Vent Needs Attention — Hazards, Health Research &amp; Who Can Fix It</title>
+<meta name="description" content="A disconnected dryer vent is blowing hot, damp, lint-filled air into the crawl space. What it can do to health and home, what research says, and reputable companies near Logansport, Indiana. With read-aloud.">
 <style>
   :root{
     --paper:#faf6ee;
@@ -36,20 +36,25 @@
     padding:.35rem 1rem;margin-bottom:1rem;
   }
   h1{
-    font-size:2.6rem;line-height:1.15;margin:.25rem 0 1rem;
+    font-size:2.4rem;line-height:1.15;margin:.25rem 0 1rem;
     color:#fff;background:linear-gradient(160deg,#0f766e,#14532d);
     padding:1.5rem 1.25rem;border-radius:1rem;
     text-shadow:0 2px 6px rgba(0,0,0,.45);
   }
-  .lede{font-size:1.45rem;color:var(--ink-soft);max-width:40rem;margin:0 auto}
-  /* reader bar */
+  .lede{font-size:1.4rem;color:var(--ink-soft);max-width:40rem;margin:0 auto}
+  .framing{
+    background:#eef6f5;border:2px solid var(--accent);border-radius:1rem;
+    padding:1.25rem 1.4rem;margin:2rem 0;font-size:1.2rem;
+  }
+  /* ---------- reader bar ---------- */
   .readerbar{
     position:sticky;top:0;z-index:50;
     background:#1f2937;color:#fff;border-radius:0 0 1rem 1rem;
-    padding:.75rem 1rem;display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;
+    padding:.75rem 1rem;
     box-shadow:0 4px 14px rgba(0,0,0,.25);
     font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
   }
+  .rb-full{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center}
   .readerbar .status{flex:1 1 100%;font-size:1rem;color:#e5e7eb;min-height:1.4em}
   button{
     font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -66,7 +71,24 @@
   .speed button{background:#374151;color:#fff;font-size:1rem;padding:.6rem .9rem;min-height:48px}
   .speed button[aria-pressed="true"]{background:var(--accent)}
   .voicetip{flex:1 1 100%;font-size:.95rem;color:#d1d5db}
-  /* cards */
+  .rb-mini{display:none}
+  .rb-play{display:none}
+  /* collapsed: small floating button, out of the way */
+  #readerbar.is-mini{position:fixed;top:auto;bottom:1.1rem;right:1.1rem;left:auto;
+    width:auto;padding:.35rem;border-radius:999px}
+  #readerbar.is-mini .rb-full,#readerbar.is-mini .rb-play{display:none}
+  #readerbar.is-mini .rb-mini{display:block}
+  .rb-mini button{width:62px;height:62px;min-height:0;padding:0;border-radius:50%;
+    background:var(--accent);color:#fff;font-size:1.7rem;line-height:1}
+  /* playing: slim strip pinned to the top */
+  #readerbar.is-playing{padding:.5rem .8rem;border-radius:0 0 .8rem .8rem}
+  #readerbar.is-playing .rb-full,#readerbar.is-playing .rb-mini{display:none}
+  #readerbar.is-playing .rb-play{display:flex;align-items:center;gap:.7rem;width:100%}
+  .rb-play .btn-stop{min-height:44px;padding:.5rem .95rem;font-size:1rem}
+  .rb-play .pstatus{font-weight:800;white-space:nowrap;font-size:1rem}
+  .rb-play .ptitle{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+    color:#e5e7eb;font-size:1rem}
+  /* ---------- cards ---------- */
   section.card{
     background:var(--card);border:2px solid var(--line);border-radius:1.1rem;
     padding:1.6rem 1.5rem;margin:1.75rem 0;
@@ -84,26 +106,62 @@
     font-size:1rem;font-weight:800;color:#fff;background:var(--warn);
     border-radius:.5rem;padding:.15rem .6rem;
   }
+  section.card.careful h2 .tag{background:#8a6d1a}
   section.card p{margin:.6rem 0}
+  section.card ul{margin:.6rem 0;padding-left:1.4rem}
+  section.card li{margin:.4rem 0}
   .listen-row{margin-top:1.1rem}
   .btn-listen{background:#eaf5f3;color:var(--accent-dark);border:2px solid var(--accent)}
   .btn-listen:hover{background:#d7ebe8}
   figure{margin:1rem 0 0}
   figure img{width:100%;height:auto;border-radius:.9rem;border:2px solid var(--line);display:block}
   figcaption{font-size:1.05rem;color:var(--ink-soft);margin-top:.5rem;text-align:center}
-  .sources{
-    font-size:1.05rem;color:var(--ink-soft);
-    border-top:2px solid var(--line);margin-top:2.5rem;padding-top:1.5rem;
+  .evidence{
+    font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:1.02rem;
+    color:var(--ink-soft);background:#f6f1e6;border-left:5px solid var(--accent);
+    padding:.7rem 1rem;margin:1rem 0;border-radius:0 .6rem .6rem 0;
   }
-  .sources a{color:var(--accent-dark)}
+  /* word bloom follow-along */
+  .w .lt{display:inline-block}
+  .w.on{background:var(--speak);border-radius:.3em;box-shadow:0 0 0 .18em var(--speak)}
+  .w.on .lt{animation:bloom .55s cubic-bezier(.2,.7,.3,1.3) both}
+  @keyframes bloom{
+    0%{transform:translateY(.45em) scale(.3);opacity:0}
+    55%{transform:translateY(-.07em) scale(1.22);opacity:1}
+    100%{transform:none;opacity:1}
+  }
+  @media (prefers-reduced-motion:reduce){.w.on .lt{animation:none}}
+  /* companies */
+  .biz{
+    border:2px solid var(--line);border-radius:.9rem;padding:1.1rem 1.2rem;margin:1rem 0;
+    background:#fbf9f4;
+  }
+  .biz h3{margin:0 0 .3rem;font-size:1.4rem}
+  .biz p{margin:.35rem 0}
+  .biz .bcontact{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:1.15rem}
+  .biz .bcontact a{color:var(--accent-dark);font-weight:700}
+  /* citations */
+  #citations{
+    border:2px solid var(--line);border-radius:1.1rem;background:#fff;
+    padding:1.6rem 1.5rem;margin:2.5rem 0 1rem;
+  }
+  #citations h2{font-size:1.7rem;margin:0 0 .5rem;text-shadow:0 1px 0 rgba(255,255,255,.6)}
+  #citations h3{font-size:1.2rem;margin:1.2rem 0 .3rem;color:var(--accent-dark);
+    font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+  #citations ul{margin:.3rem 0;padding-left:1.3rem;font-size:1.08rem}
+  #citations li{margin:.45rem 0}
+  #citations a{color:var(--accent-dark);word-break:break-all}
   .love{
     text-align:center;font-size:1.5rem;margin-top:2.5rem;color:var(--accent-dark);font-weight:bold;
+  }
+  .mednote{
+    text-align:center;font-size:1.05rem;color:var(--ink-soft);margin-top:1rem;max-width:38rem;margin-left:auto;margin-right:auto;
   }
   .no-speech{display:none;background:#fef3c7;border:2px solid #f59e0b;border-radius:.9rem;
     padding:1rem 1.25rem;margin:1.5rem 0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:1.1rem}
   @media (max-width:560px){
     body{font-size:1.15rem}
-    h1{font-size:2rem}
+    h1{font-size:1.9rem}
     section.card h2{font-size:1.6rem}
     .lede{font-size:1.25rem}
   }
@@ -112,17 +170,25 @@
 <body>
 <div class="wrap">
 
-  <div class="readerbar" role="region" aria-label="Read aloud controls">
-    <div class="status" id="readerStatus" aria-live="polite">Press &ldquo;Read everything to me&rdquo; and this page will read itself aloud.</div>
-    <button class="btn-read" id="btnReadAll" type="button">&#128266; Read everything to me</button>
-    <button class="btn-stop" id="btnStop" type="button" disabled>&#9632; Stop</button>
-    <div class="speed" role="group" aria-label="Reading speed">
-      <span>Speed:</span>
-      <button type="button" data-rate="0.85" aria-pressed="false">Slower</button>
-      <button type="button" data-rate="0.95" aria-pressed="true">Normal</button>
-      <button type="button" data-rate="1.18" aria-pressed="false">Faster</button>
+  <div id="readerbar" class="readerbar" role="region" aria-label="Read aloud controls">
+    <div class="rb-full">
+      <div class="status" id="readerStatus" aria-live="polite">Press &ldquo;Read everything to me&rdquo; and this page will read itself aloud, word by word.</div>
+      <button class="btn-read" id="btnReadAll" type="button">&#128266; Read everything to me</button>
+      <button class="btn-stop" id="btnStop" type="button" disabled>&#9632; Stop</button>
+      <div class="speed" role="group" aria-label="Reading speed">
+        <span>Speed:</span>
+        <button type="button" data-rate="0.85" aria-pressed="false">Slower</button>
+        <button type="button" data-rate="0.95" aria-pressed="true">Normal</button>
+        <button type="button" data-rate="1.18" aria-pressed="false">Faster</button>
+      </div>
+      <div class="voicetip">Warmest voice on iPhone: download &ldquo;Ava&rdquo; in Settings &rarr; Accessibility &rarr; Spoken Content &rarr; Voices &rarr; English. She&rsquo;ll be picked automatically.</div>
     </div>
-    <div class="voicetip">Warmest voice on iPhone: download &ldquo;Ava&rdquo; in Settings &rarr; Accessibility &rarr; Spoken Content &rarr; Voices &rarr; English. She&rsquo;ll be picked automatically.</div>
+    <div class="rb-mini"><button id="btnMini" type="button" aria-label="Open read-aloud controls">&#128266;</button></div>
+    <div class="rb-play">
+      <button class="btn-stop" id="btnStopPlay" type="button" aria-label="Stop reading">&#9632;</button>
+      <div class="pstatus" id="playStatus"></div>
+      <div class="ptitle" id="playTitle"></div>
+    </div>
   </div>
 
   <div class="no-speech" id="noSpeech">Your browser can&rsquo;t read aloud, so the &ldquo;listen&rdquo; buttons are hidden. Everything below is written in large print so it is easy to read.</div>
@@ -130,8 +196,12 @@
   <header class="hero">
     <span class="eyebrow">For Mom &mdash; please read, or press play and listen</span>
     <h1>Mom, Your Dryer Vent Needs Attention</h1>
-    <p class="lede">The duct under your house came loose. Instead of blowing outside, your dryer is blowing hot, damp, lint-filled air into the crawl space under your home. Here is what that can do to your health and your house &mdash; and what to do about it.</p>
+    <p class="lede">The complete guide: what is happening under the house, what it can do to health and home, what medical research says about your situation, and who near Logansport can fix it.</p>
   </header>
+
+  <div class="framing">
+    <strong>How to read this page.</strong> The first half explains the problem in plain language. The second half lines up <em>your documented health issues</em> against <em>published medical research</em> on mold and fine-dust exposure &mdash; written so it can be shared with your doctor. Nothing here is a diagnosis. The single most useful step is the same throughout: fix the vent and remove the exposure.
+  </div>
 
   <main id="content">
 
@@ -210,23 +280,158 @@
       <p><strong>Get maintenance &mdash; or your landlord &mdash; on this as soon as possible.</strong> If you rent, fixing this is the landlord&rsquo;s responsibility, not yours.</p>
       <p><strong>Take photos of it exactly as it is first</strong>, so there is a record of what was wrong before anyone touches it.</p>
       <p>The fix itself &mdash; cleaning the piping, then reconnecting and sealing the duct so all the moisture goes outside &mdash; is <strong>not a big or expensive job</strong> for someone who can get under the house. The outside end needs a proper vent cap with a damper so cold air cannot blow back in.</p>
-      <p>Do not wait on this. The fix is small. The mold and the rot are the big deal &mdash; and they only get worse with time.</p>
+      <p>Do not wait on this. The fix is small. The mold and the rot are the big deal &mdash; and they only get worse with time. Reputable local companies who can do this work are listed in part 16, below.</p>
+      <div class="listen-row"><button class="btn-listen" type="button">&#128266; Listen to this part</button></div>
+    </section>
+
+    <section class="card" data-read>
+      <h2><span class="tag">9</span>Your health profile, and why researchers would flag it</h2>
+      <p>The facts that matter for this question: you are <strong>73</strong>; you have <strong>stage 3a chronic kidney disease</strong> (eGFR 50 in June 2026); you developed <strong>shortness of breath</strong> (documented June 2026) and a <strong>cough</strong> (documented May 2026); and you carry <strong>two rescue inhalers</strong> &mdash; albuterol and Airsupra (albuterol-budesonide) &mdash; for use as needed. You also take heart and blood-pressure medications.</p>
+      <p>Three separate bodies of research &mdash; on mold and aging lungs, on mold and reactive airways, and on fine particles and kidneys &mdash; each point at a different line of your chart. That is what makes this worth a conversation with your doctor rather than a shrug.</p>
+      <p>The exposure history is longer than the disconnected vent alone. Years ago, an above-ground pool collapsed while full, and the water seeped into the crawl space. Later, the vent pipe &mdash; which originally ran to the outside &mdash; was knocked loose when someone tried to clean it with a water hose. A lint trap fitted on the dryer hose was only ever a temporary fix. So this is not months of dampness; it is years of moisture events layered on top of each other &mdash; exactly the conditions mold needs.</p>
+      <div class="listen-row"><button class="btn-listen" type="button">&#128266; Listen to this part</button></div>
+    </section>
+
+    <section class="card" data-read>
+      <h2><span class="tag">10</span>Breathing: the strongest link</h2>
+      <p>Your two newest symptoms are shortness of breath and cough &mdash; both documented in the last five months &mdash; and you use rescue inhalers, which means your airways are already reactive. Here is what the research says about that combination:</p>
+      <ul>
+        <li>In 2004 the Institute of Medicine found <strong>sufficient evidence</strong> linking indoor mold exposure to upper respiratory symptoms, cough, and wheeze in otherwise healthy people &mdash; and to asthma symptoms in people with asthma. The CDC carries the same finding today.</li>
+        <li>Older adults are hit harder: aging lungs have weaker breathing muscles and less flexible tissue, so inhaled spores stay in the lungs longer and do more damage. One clinical summary notes that COPD patients exposed to mold need medical care four times more often.</li>
+        <li>The CDC lists the elderly, people with asthma or mold allergies, and people with chronic lung disease as the groups at greatest risk &mdash; and notes that immune-compromised people and people with chronic lung disease can develop lung infections from mold.</li>
+      </ul>
+      <div class="evidence">Why it matters for you: your breathing symptoms are recent (May&ndash;June 2026). If your inhaler use has increased over the same period the vent has been disconnected, that timeline is exactly what your doctor would want to hear about.</div>
+      <div class="listen-row"><button class="btn-listen" type="button">&#128266; Listen to this part</button></div>
+    </section>
+
+    <section class="card" data-read>
+      <h2><span class="tag">11</span>Kidneys: the emerging link</h2>
+      <p>This one is newer science, and it deserves a careful telling. Large studies in the last few years have tied fine-particle air pollution to kidney damage:</p>
+      <ul>
+        <li>A Taiwan study of <strong>472,141 patients with early-stage CKD &mdash; including stage 3a, your stage</strong> &mdash; found that long-term reductions in fine-particle (PM2.5) exposure were associated with substantially lower risks of progressing to advanced kidney disease, starting dialysis, or dying. It was published in the journal <em>Environmental Health</em>.</li>
+        <li>A S&atilde;o Paulo study of 37,170 hospital records (published in <em>Scientific Reports</em>) found PM2.5 exposure increased the risk of hospitalization for chronic kidney disease by one to four times across age groups.</li>
+        <li>A U.S. study of the NEPTUNE and CureGN kidney cohorts (published in <em>Kidney International Reports</em>) found the risk of a 40% or greater decline in kidney function, or kidney failure, rose <strong>55% for each doubling</strong> of fine-particle exposure.</li>
+      </ul>
+      <p>The proposed mechanism: fine particles enter the bloodstream, lodge in kidney tissue, and trigger inflammation and scarring. Researchers describe it as the immune system treating the particles as foreign bodies.</p>
+      <div class="evidence">The honest caveat: those studies measured outdoor air pollution, not crawl-space mold specifically. Nobody has run the same study on a disconnected dryer vent. But the mechanism is about <em>total particle burden and chronic inflammation</em> &mdash; and years of breathing mold spores and lint dust adds to that burden. Your eGFR is 50, squarely in stage 3a, the exact stage the Taiwan study followed. This is worth raising with your nephrologist &mdash; not as a conclusion, but as a question.</div>
+      <div class="listen-row"><button class="btn-listen" type="button">&#128266; Listen to this part</button></div>
+    </section>
+
+    <section class="card" data-read>
+      <h2><span class="tag">12</span>Age 73 plus kidney disease: less immune resilience</h2>
+      <p>Two things independently weaken the immune system: aging, and chronic kidney disease &mdash; even at stage 3a, well before dialysis. You have both.</p>
+      <p>That matters because the CDC&rsquo;s warning about mold is sharpest for exactly these groups: older adults and people with weakened immunity face higher odds of respiratory infections, slower recovery, and &mdash; in the case of mold &mdash; lung infections that healthy adults would fight off. You are not severely immunocompromised, but you have less margin than a healthy adult, and chronic exposure is the scenario where that margin matters.</p>
+      <div class="listen-row"><button class="btn-listen" type="button">&#128266; Listen to this part</button></div>
+    </section>
+
+    <section class="card" data-read>
+      <h2><span class="tag">13</span>What is actually in dryer-lint dust</h2>
+      <p>It is not just &ldquo;dust.&rdquo; Published research on dryer emissions describes three things worth knowing:</p>
+      <ul>
+        <li><strong>Microfibers, by the hundred-thousand.</strong> One study measured roughly half a million cotton and polyester microfibers released in 15 minutes of drying (<em>Environmental Science &amp; Technology Letters</em>, 2022). The lint trap catches the coarse fibers; fibers smaller than a tenth of a millimeter sail right through. Microfibers have since been detected in human lung tissue.</li>
+        <li><strong>Chemical residues.</strong> Lint carries what was in the laundry: fabric dyes, detergent and softener residues, fragrances &mdash; warmed into volatile organic compounds (VOCs) by the heat of the dryer.</li>
+        <li><strong>Dust mites.</strong> Warm, damp, fibrous lint is ideal habitat for dust mites, whose droppings are one of the most potent indoor allergens known. Your chart says &ldquo;no known allergies&rdquo; &mdash; but sensitization can develop with chronic exposure, and non-allergic airway irritation happens regardless.</li>
+      </ul>
+      <p>Endoscope photos taken inside the crawl space confirm it: lint matted thick across every surface, hanging in strands between the floor joists, with rust-colored staining where moisture has sat for a long time.</p>
+      <div class="listen-row"><button class="btn-listen" type="button">&#128266; Listen to this part</button></div>
+    </section>
+
+    <section class="card careful" data-read>
+      <h2><span class="tag">14</span>Weaker links: stated carefully</h2>
+      <p>Two more associations show up in the literature. The evidence here is thinner, so they are flagged as <em>questions, not conclusions</em>:</p>
+      <ul>
+        <li><strong>Headaches.</strong> Some reports associate mold&rsquo;s volatile compounds (MVOCs) with headaches and difficulty concentrating. Your chart notes a sudden-onset one-sided headache. The link is plausible but not well established &mdash; worth mentioning, not worth assuming.</li>
+        <li><strong>Thinking and memory.</strong> Mouse studies have linked mold exposure to inflammation affecting memory and balance; human evidence is preliminary. Your chart notes brain atrophy (November 2025). There is no basis for connecting the two &mdash; this is included only so nobody else draws that line for you.</li>
+      </ul>
+      <div class="listen-row"><button class="btn-listen" type="button">&#128266; Listen to this part</button></div>
+    </section>
+
+    <section class="card" data-read>
+      <h2><span class="tag">15</span>Questions to bring to your doctor</h2>
+      <p>You have an office visit with Dr. Samonte on October 16. These are the questions this research earns:</p>
+      <ul>
+        <li>&ldquo;My dryer vent has been disconnected for a long time, blowing damp, moldy air under the house. Could that be contributing to the shortness of breath and cough that started this spring?&rdquo;</li>
+        <li>&ldquo;Has my rescue-inhaler use increased over the past year? Should we track it against the home environment?&rdquo;</li>
+        <li>&ldquo;Recent large studies link fine-particle exposure to faster CKD progression, even at stage 3a. Given my eGFR of 50, should we watch my kidney labs more closely while this exposure continues?&rdquo;</li>
+        <li>&ldquo;Is allergy or mold-sensitivity testing worth doing?&rdquo;</li>
+        <li>Bring the photos of the disconnected duct and the crawl space on your phone. Doctors take environmental exposures more seriously when they can see them.</li>
+      </ul>
+      <p>And the Taiwan study carries a hopeful note: when particle exposure went <em>down</em>, outcomes got <em>better</em>. Fixing the vent is not just prevention &mdash; it may be treatment.</p>
+      <div class="listen-row"><button class="btn-listen" type="button">&#128266; Listen to this part</button></div>
+    </section>
+
+    <section class="card" data-read>
+      <h2><span class="tag">16</span>Who can fix this: reputable companies near Logansport</h2>
+      <p>These are real companies that serve Logansport, Indiana (46947), verified from public listings in October 2026. <strong>Call two or three for quotes.</strong> Tell each one: (1) the dryer vent must be reconnected to the outside with a damper, per code; (2) the crawl space needs mold testing and remediation; (3) ask what keeps it from coming back &mdash; encapsulation or a dehumidifier.</p>
+      <div class="biz">
+        <h3>King&rsquo;s Cleaning Solutions</h3>
+        <p><strong>Dryer vent cleaning.</strong> Based in Kokomo, serves Logansport. 5.0 stars from 15 reviews; bonded, certified, and insured. Also does air-duct cleaning.</p>
+        <p class="bcontact"><a href="tel:+17656985096">(765) 698-5096</a> &middot; <a href="https://kingscleaningsolutions.com/dryer-vent-cleaning-services-logansport-in/">kingscleaningsolutions.com</a></p>
+      </div>
+      <div class="biz">
+        <h3>Hazvet LLC</h3>
+        <p><strong>Mold testing &amp; remediation.</strong> Local, veteran-owned, at 2021 E. Broadway, Logansport, IN 46947. State-licensed for mold testing, remediation, and contracting.</p>
+        <p class="bcontact"><a href="tel:+15745167577">(574) 516-7577</a></p>
+      </div>
+      <div class="biz">
+        <h3>PuroClean of Lafayette</h3>
+        <p><strong>Mold remediation &amp; crawl-space moisture.</strong> Certified restoration company serving the Logansport area. 24/7 emergency response.</p>
+        <p class="bcontact"><a href="tel:+17657014242">(765) 701-4242</a> &middot; <a href="https://www.puroclean.com/lafayette-in-puroclean-lafayette/service-areas/logansport/mold-remediation-in-logansport-in/">puroclean.com</a></p>
+      </div>
+      <div class="biz">
+        <h3>Acculevel</h3>
+        <p><strong>Crawl-space encapsulation (prevention).</strong> Serves Logansport. 4.8 out of 5 from more than 2,000 reviews. Seals the crawl space against moisture for good.</p>
+        <p class="bcontact"><a href="https://acculevel.com/indiana/logansport/crawl-space-encapsulation-logansport-in/">acculevel.com</a></p>
+      </div>
+      <div class="biz">
+        <h3>Indiana Foundation Service</h3>
+        <p><strong>Crawl-space encapsulation (prevention).</strong> Serves Kokomo and the surrounding area. A+ BBB rating; 4.7 from over 1,500 reviews. Free inspections.</p>
+        <p class="bcontact"><a href="https://www.indianafoundation.com/service-areas/crawl-space-encapsulation-kokomo-in/">indianafoundation.com</a></p>
+      </div>
+      <div class="biz">
+        <h3>Basement Systems of Indiana</h3>
+        <p><strong>Crawl-space encapsulation (prevention).</strong> Vapor barriers, dehumidifiers, and sump systems. Free estimates.</p>
+        <p class="bcontact"><a href="tel:+18443408064">1-844-340-8064</a> &middot; <a href="https://www.basementsystemsofindiana.com/">basementsystemsofindiana.com</a></p>
+      </div>
+      <p>Phone numbers and websites were verified from public listings in October 2026 &mdash; call to confirm current hours before driving over.</p>
       <div class="listen-row"><button class="btn-listen" type="button">&#128266; Listen to this part</button></div>
     </section>
 
   </main>
 
-  <section class="card">
-    <h2>For family: the health research</h2>
-    <p>I also wrote up what medical research says about long-term mold and lint-dust exposure for someone with Mom&rsquo;s health history &mdash; meant to be shared with her doctor. <a href="health-correlations.html" style="font-weight:bold">Read the research notes &rarr;</a></p>
+  <section id="citations" aria-label="Sources and citations">
+    <h2>Sources &amp; citations</h2>
+    <p>Every fact on this page comes from one of the sources below.</p>
+    <h3>Home safety &amp; health</h3>
+    <ul>
+      <li>U.S. Fire Administration &mdash; clothes dryer fire statistics (about 2,900 home dryer fires per year; failure to clean the leading cause at 34%). <a href="https://www.usfa.fema.gov/prevention/outreach/clothes-dryer.html">usfa.fema.gov</a></li>
+      <li>Centers for Disease Control and Prevention &mdash; health effects of mold exposure. <a href="https://www.cdc.gov/mold-health/about/index.html">cdc.gov/mold-health/about</a></li>
+      <li>iAdvance Senior Care &mdash; mold and mildew risks for older adults. <a href="https://www.iadvanceseniorcare.com/protecting-seniors-in-your-care-the-hidden-dangers-of-mold-and-mildew/">iadvanceseniorcare.com</a></li>
+    </ul>
+    <h3>Building code</h3>
+    <ul>
+      <li>International Residential Code, Chapter 15, sections M1501&ndash;M1502 &mdash; dryer exhaust must terminate outside; air shall not be exhausted into an attic, soffit, ridge vent, or crawl space. <a href="https://codes.iccsafe.org/content/IRC2021P2/chapter-15-exhaust-systems">codes.iccsafe.org</a></li>
+    </ul>
+    <h3>Published research</h3>
+    <ul>
+      <li>Taiwan nationwide cohort, 472,141 early-CKD patients (<em>Environmental Health</em>) &mdash; cleaner air linked to slower kidney disease progression. Summary: <a href="https://bioengineer.org/cleaner-air-slows-kidney-disease-progression-in-half-million-patient-taiwan-study/">bioengineer.org</a></li>
+      <li>S&atilde;o Paulo PM2.5 and kidney-disease hospitalizations, 37,170 records (<em>Scientific Reports</em>). Summary: <a href="https://www.pulmonologyadvisor.com/news/fine-particulate-matter-exposure-linked-to-increased-admissions-for-kidney-diseases/">pulmonologyadvisor.com</a></li>
+      <li>NEPTUNE / CureGN cohorts &mdash; air pollution and glomerular disease progression (<em>Kidney International Reports</em>). Summary: <a href="https://www.endocrinologyadvisor.com/?p=131603">endocrinologyadvisor.com</a></li>
+      <li>Dryer microfiber emissions (<em>Environmental Science &amp; Technology Letters</em>, 2022; <em>Environmental Research Communications</em>, 2025). Summary: <a href="https://cen.acs.org/environment/pollution/Commercial-dryers-release-microfibers-air/103/web/2025/12">Chemical &amp; Engineering News</a></li>
+      <li>Institute of Medicine (2004) findings on indoor mold and respiratory health, via the CDC. <a href="https://www.cdc.gov/mold-health/about/index.html">cdc.gov/mold-health/about</a></li>
+    </ul>
+    <h3>Local companies (verified October 2026)</h3>
+    <ul>
+      <li>King&rsquo;s Cleaning Solutions &mdash; <a href="https://kingscleaningsolutions.com/dryer-vent-cleaning-services-logansport-in/">kingscleaningsolutions.com</a></li>
+      <li>PuroClean of Lafayette &mdash; <a href="https://www.puroclean.com/lafayette-in-puroclean-lafayette/service-areas/logansport/mold-remediation-in-logansport-in/">puroclean.com</a></li>
+      <li>Acculevel, Logansport crawl-space encapsulation &mdash; <a href="https://acculevel.com/indiana/logansport/crawl-space-encapsulation-logansport-in/">acculevel.com</a></li>
+      <li>Indiana Foundation Service &mdash; <a href="https://www.indianafoundation.com/service-areas/crawl-space-encapsulation-kokomo-in/">indianafoundation.com</a></li>
+      <li>Basement Systems of Indiana &mdash; <a href="https://www.basementsystemsofindiana.com/">basementsystemsofindiana.com</a></li>
+    </ul>
   </section>
 
-  <div class="sources">
-    <p><strong>Where the facts come from:</strong> fire statistics from the <a href="https://www.usfa.fema.gov/prevention/outreach/clothes-dryer.html">U.S. Fire Administration</a> (about 2,900 home dryer fires per year; failure to clean the leading cause at 34%); health effects of mold from the <a href="https://www.cdc.gov/mold-health/about/index.html">Centers for Disease Control and Prevention</a>; venting rules from the <a href="https://codes.iccsafe.org/content/IRC2021P2/chapter-15-exhaust-systems">International Residential Code, Chapter 15 (M1501&ndash;M1502)</a>.</p>
-    <p>This page explains a home-safety issue. It is not medical advice. If you are having breathing symptoms, please talk to your doctor.</p>
-  </div>
-
   <p class="love">Made with love for Mom. Please get this fixed &mdash; I want you safe.</p>
+  <p class="mednote">This page explains a home-safety issue and summarizes published research. It is not medical advice. If you are having breathing symptoms, please talk to your doctor.</p>
 
 </div>
 
@@ -234,20 +439,39 @@
 (function(){
   "use strict";
   var synth = window.speechSynthesis || null;
+  var bar = document.getElementById('readerbar');
   var statusEl = document.getElementById('readerStatus');
   var btnAll = document.getElementById('btnReadAll');
   var btnStop = document.getElementById('btnStop');
+  var btnStopPlay = document.getElementById('btnStopPlay');
+  var btnMini = document.getElementById('btnMini');
+  var playStatus = document.getElementById('playStatus');
+  var playTitle = document.getElementById('playTitle');
   var cards = Array.prototype.slice.call(document.querySelectorAll('section.card[data-read]'));
   var rate = 0.95;
   var reading = false;
-  var currentUtter = null;
 
-  function say(text){ return statusEl.textContent = text; }
+  function say(text){ statusEl.textContent = text; }
 
-  /* Friendly voices, ranked: Apple's natural "Ava" first (warm US female;
-     download her on iPhone via Settings > Accessibility > Spoken Content >
-     Voices > English), then Zoe, then the familiar Samantha, then Chrome's
-     natural Google US English voice, then other warm Apple English voices. */
+  /* ---------- reader bar states: full / mini / playing ---------- */
+  var barState = 'full';
+  function setBar(s){
+    barState = s;
+    bar.classList.remove('is-mini','is-playing');
+    if(s === 'mini') bar.classList.add('is-mini');
+    if(s === 'playing') bar.classList.add('is-playing');
+  }
+  function restBar(){
+    if(barState === 'playing') return;
+    setBar(window.scrollY > 260 ? 'mini' : 'full');
+  }
+  window.addEventListener('scroll', restBar, {passive:true});
+  btnMini.addEventListener('click', function(){
+    window.scrollTo({top:0, behavior:'smooth'});
+    setBar('full');
+  });
+
+  /* ---------- friendly voice ---------- */
   var FRIENDLY_VOICES = ['ava','zoe','samantha','google us english','allison',
     'susan','karen','moira','tessa','fiona','shelley','serena'];
   function pickVoice(){
@@ -268,85 +492,216 @@
     return anyEn[0] || voices[0] || null;
   }
 
-  function stopReading(silent){
-    reading = false;
-    if(synth){ try{ synth.cancel(); }catch(e){} }
-    cards.forEach(function(c){ c.classList.remove('speaking'); });
-    btnStop.disabled = true;
-    if(!silent) say('Stopped. Press \u201cRead everything to me\u201d to start again.');
+  /* ---------- word wrapping for follow-along bloom ---------- */
+  function prepareCard(card){
+    if(card._prep) return card._prep;
+    var num = ((card.querySelector('.tag') || {}).textContent || '').trim();
+    var h2 = card.querySelector('h2');
+    var titleText = '';
+    if(h2){
+      var cl = h2.cloneNode(true);
+      var tg = cl.querySelector('.tag');
+      if(tg) tg.remove();
+      titleText = cl.textContent.replace(/\s+/g,' ').trim();
+    }
+    var bodyEls = [];
+    Array.prototype.forEach.call(card.querySelectorAll('p, li, div.evidence'), function(el){
+      if(el.closest('.listen-row')) return;
+      var tx = el.textContent.replace(/\s+/g,' ').trim();
+      if(tx) bodyEls.push(el);
+    });
+    var parts = [], starts = [], spans = [], pos = 0;
+    function ew(w, span){ starts.push(pos); parts.push(w); pos += w.length; spans.push(span || null); }
+    function es(){ parts.push(' '); pos += 1; }
+    ew('Part'); es(); ew(num + '.'); es();
+    function wrapTokens(el, tokens, skipSel){
+      if(!el || !tokens.length) return;
+      var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, { acceptNode:function(n){
+        var p = n.parentElement;
+        if(!p) return NodeFilter.FILTER_REJECT;
+        if(skipSel && p.closest(skipSel)) return NodeFilter.FILTER_REJECT;
+        if(p.closest('button') || p.closest('.listen-row')) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }});
+      var nodes = [];
+      while(walker.nextNode()) nodes.push(walker.currentNode);
+      var ti = 0;
+      nodes.forEach(function(node){
+        var rest = node.nodeValue.replace(/\s+/g,' ');
+        var parent = node.parentNode;
+        var frag = document.createDocumentFragment();
+        var changed = false;
+        while(ti < tokens.length && rest){
+          if(rest.charAt(0) === ' '){ frag.appendChild(document.createTextNode(' ')); rest = rest.slice(1); changed = true; continue; }
+          var tok = tokens[ti];
+          if(rest.indexOf(tok) === 0){
+            var s = document.createElement('span');
+            s.className = 'w';
+            var li = 0;
+            Array.prototype.forEach.call(tok, function(ch){
+              var l = document.createElement('span');
+              l.className = 'lt';
+              l.style.animationDelay = (li * 28) + 'ms';
+              li++;
+              l.textContent = ch;
+              s.appendChild(l);
+            });
+            s.dataset.wi = spans.length;
+            frag.appendChild(s);
+            ew(tok, s); es();
+            rest = rest.slice(tok.length);
+            ti++; changed = true;
+          } else { break; }
+        }
+        if(rest) frag.appendChild(document.createTextNode(rest));
+        if(changed) parent.replaceChild(frag, node);
+      });
+      while(ti < tokens.length){ ew(tokens[ti], null); es(); ti++; }
+    }
+    var tt = titleText ? titleText.split(' ') : [];
+    if(tt.length){ tt[tt.length - 1] += '.'; wrapTokens(h2, tt, '.tag'); }
+    bodyEls.forEach(function(el){
+      wrapTokens(el, el.textContent.replace(/\s+/g,' ').trim().split(' '), null);
+    });
+    var prep = { num:num, spoken:parts.join(''), starts:starts, spans:spans,
+                 card:card, activeWi:null, fallbackTimer:null, utter:null };
+    try{ Object.defineProperty(card, '_prep', {value:prep}); }catch(e){ card._prep = prep; }
+    return prep;
   }
 
-  function readCard(index, done){
-    if(index >= cards.length){
-      stopReading(true);
-      say('Finished reading the whole page.');
-      return;
+  function titleOf(card){
+    var h2 = card.querySelector('h2');
+    if(!h2) return '';
+    var cl = h2.cloneNode(true);
+    var tg = cl.querySelector('.tag');
+    if(tg) tg.remove();
+    return cl.textContent.replace(/\s+/g,' ').trim();
+  }
+
+  function findWord(prep, charIndex){
+    var s = prep.starts, lo = 0, hi = s.length - 1, ans = -1;
+    while(lo <= hi){
+      var mid = (lo + hi) >> 1;
+      if(s[mid] <= charIndex){ ans = mid; lo = mid + 1; } else { hi = mid - 1; }
     }
-    var card = cards[index];
-    var heading = card.querySelector('h2').textContent.replace(/^\d+\s*/, 'Part ');
-    var body = Array.prototype.map.call(card.querySelectorAll('p'), function(p){ return p.textContent; }).join(' ');
-    var text = heading + '. ' + body;
-    var u = new SpeechSynthesisUtterance(text);
+    return ans;
+  }
+
+  function setActive(prep, wi){
+    if(prep.activeWi === wi) return;
+    if(prep.activeWi != null && prep.spans[prep.activeWi]) prep.spans[prep.activeWi].classList.remove('on');
+    prep.activeWi = wi;
+    var sp = (wi != null) ? prep.spans[wi] : null;
+    if(sp){
+      sp.classList.add('on');
+      var r = sp.getBoundingClientRect();
+      if(r.top < 80 || r.bottom > window.innerHeight - 60){
+        try{ sp.scrollIntoView({block:'center', behavior:'smooth'}); }catch(e){}
+      }
+    }
+  }
+
+  function clearUtter(prep){
+    if(!prep) return;
+    if(prep.fallbackTimer){ clearTimeout(prep.fallbackTimer); clearInterval(prep.fallbackTimer); prep.fallbackTimer = null; }
+    if(prep.activeWi != null && prep.spans[prep.activeWi]) prep.spans[prep.activeWi].classList.remove('on');
+    prep.activeWi = null;
+  }
+
+  function stopSpeech(){
+    reading = false;
+    if(synth){ try{ synth.cancel(); }catch(e){} }
+    cards.forEach(function(c){
+      c.classList.remove('speaking');
+      if(c._prep) clearUtter(c._prep);
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('.w.on'), function(w){ w.classList.remove('on'); });
+  }
+
+  function stopReading(msg){
+    stopSpeech();
+    btnStop.disabled = true;
+    restBar();
+    say(msg || 'Stopped. Press \u201cRead everything to me\u201d to start again.');
+  }
+
+  function startUtterance(prep, index, onend){
+    stopSpeech();
+    reading = true;
+    btnStop.disabled = false;
+    var u = new SpeechSynthesisUtterance(prep.spoken);
     u.rate = rate;
     var v = pickVoice();
     if(v) u.voice = v;
-    currentUtter = u;
+    prep.utter = u;
+    var gotBoundary = false;
     u.onstart = function(){
       cards.forEach(function(c){ c.classList.remove('speaking'); });
-      card.classList.add('speaking');
-      card.scrollIntoView({behavior:'smooth', block:'center'});
-      say('Reading part ' + (index+1) + ' of ' + cards.length + ': ' + card.querySelector('h2').textContent.trim());
+      prep.card.classList.add('speaking');
+      setBar('playing');
+      playStatus.textContent = 'Part ' + prep.num + ' of ' + cards.length;
+      playTitle.textContent = titleOf(prep.card);
+      try{ prep.card.scrollIntoView({block:'start', behavior:'smooth'}); }catch(e){}
+      prep.fallbackTimer = setTimeout(function(){
+        if(!gotBoundary && reading){
+          var wi = 2, stepMs = 60000 / (165 * rate);
+          prep.fallbackTimer = setInterval(function(){
+            if(!reading) return;
+            if(wi < prep.spans.length){ setActive(prep, wi); wi++; }
+          }, stepMs);
+        } else { prep.fallbackTimer = null; }
+      }, 1200);
     };
-    u.onend = function(){ if(reading) readCard(index+1, done); };
-    u.onerror = function(){ if(reading){ stopReading(true); say('The reader hit a problem and stopped. You can press play to try again.'); } };
-    synth.speak(u);
+    u.onboundary = function(e){
+      if(e.charIndex == null) return;
+      gotBoundary = true;
+      if(prep.fallbackTimer){ clearTimeout(prep.fallbackTimer); clearInterval(prep.fallbackTimer); prep.fallbackTimer = null; }
+      var wi = findWord(prep, e.charIndex);
+      setActive(prep, wi >= 2 ? wi : null);
+    };
+    u.onend = function(){
+      clearUtter(prep);
+      if(reading) onend();
+    };
+    u.onerror = function(){
+      var wasReading = reading;
+      clearUtter(prep);
+      if(wasReading) stopReading('The reader hit a problem and stopped. You can press play to try again.');
+    };
+    try{ synth.speak(u); }catch(err){ stopReading('The reader could not start in this browser.'); }
   }
 
   function readAll(){
     if(!synth) return;
-    stopReading(true);
-    reading = true;
-    btnStop.disabled = false;
-    var vv = pickVoice();
-    say('Reading everything to you' + (vv && vv.name ? ' with ' + vv.name : '') + '.');
-    readCard(0);
+    var i = 0;
+    (function next(){
+      if(i >= cards.length){
+        stopReading('Finished reading the whole page.');
+        return;
+      }
+      startUtterance(prepareCard(cards[i]), i, function(){ i++; next(); });
+    })();
   }
 
   function readSingle(card){
     if(!synth) return;
-    stopReading(true);
-    reading = true;
-    btnStop.disabled = false;
-    var idx = cards.indexOf(card);
-    var heading = card.querySelector('h2').textContent.replace(/^\d+\s*/, 'Part ');
-    var body = Array.prototype.map.call(card.querySelectorAll('p'), function(p){ return p.textContent; }).join(' ');
-    var u = new SpeechSynthesisUtterance(heading + '. ' + body);
-    u.rate = rate;
-    var v = pickVoice();
-    if(v) u.voice = v;
-    currentUtter = u;
-    u.onstart = function(){
-      cards.forEach(function(c){ c.classList.remove('speaking'); });
-      card.classList.add('speaking');
-      say('Reading: ' + card.querySelector('h2').textContent.trim());
-    };
-    u.onend = function(){ stopReading(true); say('Finished that part.'); };
-    u.onerror = function(){ stopReading(true); };
-    synth.speak(u);
+    startUtterance(prepareCard(card), cards.indexOf(card), function(){
+      stopReading('Finished that part.');
+    });
   }
 
   if(!synth){
     document.getElementById('noSpeech').style.display = 'block';
-    btnAll.disabled = true;
-    btnStop.disabled = true;
-    Array.prototype.forEach.call(document.querySelectorAll('.btn-listen,.speed'), function(el){ el.style.display = 'none'; });
+    bar.style.display = 'none';
+    Array.prototype.forEach.call(document.querySelectorAll('.btn-listen'), function(el){ el.style.display = 'none'; });
     say('Read-aloud is not available in this browser.');
   } else {
     if(synth.getVoices().length === 0 && typeof synth.onvoiceschanged !== 'undefined'){
       synth.onvoiceschanged = function(){ pickVoice(); };
     }
     btnAll.addEventListener('click', readAll);
-    btnStop.addEventListener('click', function(){ stopReading(false); });
+    btnStop.addEventListener('click', function(){ stopReading(); });
+    btnStopPlay.addEventListener('click', function(){ stopReading(); });
     cards.forEach(function(card){
       var b = card.querySelector('.btn-listen');
       if(b) b.addEventListener('click', function(){ readSingle(card); });
@@ -354,11 +709,12 @@
     var speedBtns = Array.prototype.slice.call(document.querySelectorAll('.speed button'));
     speedBtns.forEach(function(b){
       b.addEventListener('click', function(){
-        rate = parseFloat(b.getAttribute('data-rate')) || 1;
+        rate = parseFloat(b.getAttribute('data-rate')) || 0.95;
         speedBtns.forEach(function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
         say('Reading speed set to ' + b.textContent.trim() + '.');
       });
     });
+    restBar();
   }
 })();
 </script>
