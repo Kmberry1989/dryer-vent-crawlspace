@@ -130,6 +130,8 @@
     color:var(--ink-soft);background:#f6f1e6;border-left:5px solid var(--accent);
     padding:.7rem 1rem;margin:1rem 0;border-radius:0 .6rem .6rem 0;
   }
+  .evidence.warning{border-left-color:var(--warn);background:#fdf0ec}
+  .evidence.warning ul{margin:.5rem 0;padding-left:1.3rem}
   /* word bloom follow-along */
   .w .lt{display:inline-block}
   .w.on{background:var(--speak);border-radius:.3em;box-shadow:0 0 0 .18em var(--speak)}
@@ -375,6 +377,18 @@
     <section class="card" data-read>
       <h2><span class="tag">16</span>Who can fix this: reputable companies near Logansport</h2>
       <p>These are real companies that serve Logansport, Indiana (46947). Review ratings below were checked in October 2026. <strong>Call two or three for quotes.</strong> Tell each one: (1) the dryer vent must be reconnected to the outside with a damper, per code; (2) the crawl space needs mold testing and remediation; (3) ask what keeps it from coming back &mdash; encapsulation or a dehumidifier.</p>
+      <div class="evidence warning">
+        <strong>A note for Dad &mdash; about the dehumidifier outlet.</strong>
+        I know you canceled the last company because they wanted to install an outlet in the crawl space for the dehumidifier, and you figured the outlet on the side of the house would do the job. Here is why the company was right:
+        <ul>
+          <li><strong>An extension cord cannot legally do this job.</strong> The National Electrical Code (NEC 400.8) says flexible cords shall not be used as a substitute for a structure&rsquo;s fixed wiring &mdash; and a dehumidifier that lives in the crawl space permanently needs permanent wiring. The U.S. Consumer Product Safety Commission says the same: extension cords are for temporary use only, never as permanent household wiring.</li>
+          <li><strong>It is a fire risk.</strong> The Electrical Safety Foundation International reports roughly 3,300 home fires a year start in extension cords. Their rules: never substitute a cord for permanent wiring, never run one through walls, doorways, or floors &mdash; and if you are relying on cords, have outlets installed where you need them. A cord snaked from the house outlet into the crawl space breaks all three rules.</li>
+          <li><strong>Water and electricity do not mix.</strong> Crawl spaces are damp &mdash; that is the whole problem. A cord lying in damp soil is a shock hazard. A properly installed crawl-space outlet is GFCI-protected, which cuts the power instantly if current leaks.</li>
+          <li><strong>The seal matters.</strong> The cord has to pass through the crawl-space vent or access door, which means the opening can never fully close &mdash; letting moisture, and the mice from part 6, right back in. That undoes the encapsulation you are paying for.</li>
+          <li><strong>If the cord gets kicked loose, nobody knows.</strong> A dehumidifier quietly unplugged means the moisture comes back and the mold starts over. A dedicated outlet stays put.</li>
+        </ul>
+        The outlet install is a small, one-time electrical job &mdash; far cheaper than paying for mold remediation twice. Let the company do it their way.
+      </div>
       <div class="biz">
         <h3>King&rsquo;s Cleaning Solutions</h3>
         <p><strong>Dryer vent cleaning.</strong> Based in Kokomo, serves Logansport. <strong>5.0 stars from 15 customer reviews</strong>; bonded, certified, and insured. Also does air-duct cleaning.</p>
@@ -431,6 +445,12 @@
       <li>NEPTUNE / CureGN cohorts &mdash; air pollution and glomerular disease progression (<em>Kidney International Reports</em>). Summary: <a href="https://www.endocrinologyadvisor.com/?p=131603">endocrinologyadvisor.com</a></li>
       <li>Dryer microfiber emissions (<em>Environmental Science &amp; Technology Letters</em>, 2022; <em>Environmental Research Communications</em>, 2025). Summary: <a href="https://cen.acs.org/environment/pollution/Commercial-dryers-release-microfibers-air/103/web/2025/12">Chemical &amp; Engineering News</a></li>
       <li>Institute of Medicine (2004) findings on indoor mold and respiratory health, via the CDC. <a href="https://www.cdc.gov/mold-health/about/index.html">cdc.gov/mold-health/about</a></li>
+    </ul>
+    <h3>Electrical safety</h3>
+    <ul>
+      <li>National Electrical Code, Article 400.8 &mdash; flexible cords shall not be used as a substitute for a structure&rsquo;s fixed wiring, nor run through holes in walls or floors, doorways, windows, or similar openings. Via <em>Electrical Contractor Magazine</em>: <a href="https://www.ecmag.com/magazine/articles/article-detail/codes-standards-black-and-white-years-concealment-flexible-cords-and-cables">ecmag.com</a></li>
+      <li>Electrical Safety Foundation International &mdash; extension cords are a temporary solution, not permanent wiring; roughly 3,300 home fires a year originate in extension cords. <a href="https://www.esfi.org/extension-cord-safety-tips/">esfi.org</a></li>
+      <li>U.S. Consumer Product Safety Commission &mdash; extension cords should only be used on a temporary basis and are not intended as permanent household wiring. <a href="https://www.cpsc.gov/Newsroom/News-Releases/1997/CPSC-National-Electrical-Safety-Foundation-Urge-Consumers-to-Plug-Into-Electrical-Safety">cpsc.gov</a></li>
     </ul>
     <h3>Local companies (verified October 2026)</h3>
     <ul>
@@ -548,6 +568,7 @@
     var bodyEls = [];
     Array.prototype.forEach.call(card.querySelectorAll('p, li, div.evidence'), function(el){
       if(el.closest('.listen-row')) return;
+      if((el.tagName === 'LI' || el.tagName === 'P') && el.closest('div.evidence')) return;
       var tx = el.textContent.replace(/\s+/g,' ').trim();
       if(tx) bodyEls.push(el);
     });
