@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mom, Your Dryer Vent Needs Attention</title>
+<meta name="description" content="Why a disconnected dryer vent blowing into a crawl space is a fire, mold, rot, and pest hazard — and what to do about it. With read-aloud.">
+<style>
+  :root{
+    --paper:#faf6ee;
+    --ink:#2b2119;
+    --ink-soft:#5c4f43;
+    --accent:#0f766e;
+    --accent-dark:#0b5a55;
+    --warn:#b3402a;
+    --card:#ffffff;
+    --line:#e6dcc9;
+    --speak:#fff3d6;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:1.25rem;
+    line-height:1.65;
+  }
+  .wrap{max-width:46rem;margin:0 auto;padding:1rem 1.25rem 4rem}
+  header.hero{padding:2.5rem 0 1.5rem;text-align:center}
+  .eyebrow{
+    display:inline-block;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-size:1rem;font-weight:700;letter-spacing:.04em;
+    color:var(--accent-dark);background:#e2f2f0;border-radius:999px;
+    padding:.35rem 1rem;margin-bottom:1rem;
+  }
+  h1{
+    font-size:2.6rem;line-height:1.15;margin:.25rem 0 1rem;
+    color:#fff;background:linear-gradient(160deg,#0f766e,#14532d);
+    padding:1.5rem 1.25rem;border-radius:1rem;
+    text-shadow:0 2px 6px rgba(0,0,0,.45);
+  }
+  .lede{font-size:1.45rem;color:var(--ink-soft);max-width:40rem;margin:0 auto}
+  /* reader bar */
+  .readerbar{
+    position:sticky;top:0;z-index:50;
+    background:#1f2937;color:#fff;border-radius:0 0 1rem 1rem;
+    padding:.75rem 1rem;display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;
+    box-shadow:0 4px 14px rgba(0,0,0,.25);
+    font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+  }
+  .readerbar .status{flex:1 1 100%;font-size:1rem;color:#e5e7eb;min-height:1.4em}
+  button{
+    font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-size:1.15rem;font-weight:700;cursor:pointer;
+    border:none;border-radius:.75rem;padding:.85rem 1.3rem;min-height:52px;
+  }
+  button:focus-visible{outline:4px solid #fbbf24;outline-offset:2px}
+  .btn-read{background:var(--accent);color:#fff}
+  .btn-read:hover{background:var(--accent-dark)}
+  .btn-stop{background:#6b7280;color:#fff}
+  .btn-stop:hover{background:#4b5563}
+  .speed{display:flex;gap:.4rem;align-items:center}
+  .speed span{font-size:1rem;color:#e5e7eb}
+  .speed button{background:#374151;color:#fff;font-size:1rem;padding:.6rem .9rem;min-height:48px}
+  .speed button[aria-pressed="true"]{background:var(--accent)}
+  /* cards */
+  section.card{
+    background:var(--card);border:2px solid var(--line);border-radius:1.1rem;
+    padding:1.6rem 1.5rem;margin:1.75rem 0;
+    box-shadow:0 2px 8px rgba(60,40,20,.06);
+    transition:border-color .2s, background .2s;
+  }
+  section.card.speaking{border-color:var(--accent);background:var(--speak)}
+  section.card h2{
+    font-size:1.9rem;line-height:1.25;margin:0 0 .75rem;
+    text-shadow:0 1px 0 rgba(255,255,255,.6);
+  }
+  section.card h2 .tag{
+    display:inline-block;vertical-align:middle;margin-right:.5rem;
+    font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-size:1rem;font-weight:800;color:#fff;background:var(--warn);
+    border-radius:.5rem;padding:.15rem .6rem;
+  }
+  section.card p{margin:.6rem 0}
+  .listen-row{margin-top:1.1rem}
+  .btn-listen{background:#eaf5f3;color:var(--accent-dark);border:2px solid var(--accent)}
+  .btn-listen:hover{background:#d7ebe8}
+  figure{margin:1rem 0 0}
+  figure img{width:100%;height:auto;border-radius:.9rem;border:2px solid var(--line);display:block}
+  figcaption{font-size:1.05rem;color:var(--ink-soft);margin-top:.5rem;text-align:center}
+  .sources{
+    font-size:1.05rem;color:var(--ink-soft);
+    border-top:2px solid var(--line);margin-top:2.5rem;padding-top:1.5rem;
+  }
+  .sources a{color:var(--accent-dark)}
+  .love{
+    text-align:center;font-size:1.5rem;margin-top:2.5rem;color:var(--accent-dark);font-weight:bold;
+  }
+  .no-speech{display:none;background:#fef3c7;border:2px solid #f59e0b;border-radius:.9rem;
+    padding:1rem 1.25rem;margin:1.5rem 0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:1.1rem}
+  @media (max-width:560px){
+    body{font-size:1.15rem}
+    h1{font-size:2rem}
+    section.card h2{font-size:1.6rem}
+    .lede{font-size:1.25rem}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="readerbar" role="region" aria-label="Read aloud controls">
+    <div class="status" id="readerStatus" aria-live="polite">Press &ldquo;Read everything to me&rdquo; and this page will read itself aloud.</div>
+    <button class="btn-read" id="btnReadAll" type="button">&#128266; Read everything to me</button>
+    <button class="btn-stop" id="btnStop" type="button" disabled>&#9632; Stop</button>
+    <div class="speed" role="group" aria-label="Reading speed">
+      <span>Speed:</span>
+      <button type="button" data-rate="0.85" aria-pressed="false">Slower</button>
+      <button type="button" data-rate="1" aria-pressed="true">Normal</button>
+      <button type="button" data-rate="1.18" aria-pressed="false">Faster</button>
+    </div>
+  </div>
+
+  <div class="no-speech" id="noSpeech">Your browser can&rsquo;t read aloud, so the &ldquo;listen&rdquo; buttons are hidden. Everything below is written in large print so it is easy to read.</div>
+
+  <header class="hero">
+    <span class="eyebrow">For Mom &mdash; please read, or press play and listen</span>
+    <h1>Mom, Your Dryer Vent Needs Attention</h1>
+    <p class="lede">The duct under your house came loose. Instead of blowing outside, your dryer is blowing hot, damp, lint-filled air into the crawl space under your home. Here is what that can do to your health and your house &mdash; and what to do about it.</p>
+  </header>
+
+  <main id="content">
+
+    <section class="card" data-read>
+      <h2><span class="tag">1</span>What is happening under the house</h2>
+      <figure>
+        <img src="assets/dryer-vent-photo.jpg" alt="A disconnected silver dryer duct hanging loose, packed with gray lint, next to a dark round hole in the floor leading into the crawl space">
+        <figcaption>The loose duct: you can see the gray lint packed inside it. The dark hole is the opening it pulled away from.</figcaption>
+      </figure>
+      <p>The flexible silver duct that should carry your dryer&rsquo;s exhaust to the outside has come disconnected. All the heat, moisture, and lint from every load of laundry is going straight into the dark, enclosed crawl space under your home.</p>
+      <p>In cases just like this, the loose lint was still <strong>damp days after the dryer had last been used</strong>. That tells you how much moisture is trapped down there with nowhere to go.</p>
+      <div class="listen-row"><button class="btn-listen" type="button">&#128266; Listen to this part</button></div>
+    </section>
+
+    <section class="card" data-read>
+      <h2><span class="tag">2</span>Fire hazard: lint is extremely flammable</h2>
+      <p>Lint burns very easily &mdash; it is one of the most flammable things in a house. Right now it is piling up inside a dark, enclosed space under your home.</p>
+      <p>The U.S. Fire Administration reports about <strong>2,900 home clothes dryer fires every year</strong> in the United States &mdash; an estimated 5 deaths, 100 injuries, and 35 million dollars in property damage. The leading cause, at 34 percent, is failure to clean the dryer. Lint buildup in an enclosed space is exactly the kindling those fires start from.</p>
+      <div class="listen-row"><button class="btn-listen" type="button">&#128266; Listen to this part</button></div>
+    </section>
+
+    <section class="card" data-read>
+      <h2><span class="tag">3</span>Mold, including black mold</h2>
+      <p>Years of hot, damp air circulating under a home is the perfect recipe for mold &mdash; including black mold. Mold needs only moisture and time, and this gives it both.</p>
+      <p>According to the Centers for Disease Control and Prevention, exposure to damp and moldy environments can cause a <strong>stuffy nose, sore throat, coughing or wheezing, burning eyes, or skin rash</strong>. People with asthma or mold allergies can have severe reactions. People with weakened immune systems or chronic lung disease can develop lung infections from mold.</p>
+      <p>If you have had a lingering cough, congestion, or itchy eyes that never quite go away, this could be part of the reason &mdash; and it is worth telling your doctor about.</p>
+      <div class="listen-row"><button class="btn-listen" type="button">&#128266; Listen to this part</button></div>
+    </section>
+
+    <section class="card" data-read>
+      <h2><span class="tag">4</span>The wood under your floors can rot</h2>
+      <p>All that moisture does not just feed mold &mdash; it rots the wood your house sits on. The subfloor and the floor joists can rot <strong>from underneath</strong>, where you cannot see it from inside the house.</p>
+      <p>Rotted joists are structural damage. Repairing them costs far more than reconnecting one duct &mdash; which is why this should be fixed before the moisture has years to work.</p>
+      <div class="listen-row"><button class="btn-listen" type="button">&#128266; Listen to this part</button></div>
+    </section>
+
+    <section class="card" data-read>
+      <h2><span class="tag">5</span>Rats and mice move in</h2>
+      <p>A warm, sheltered crawl space full of soft lint is an invitation to rats and mice. Once rodents settle in under a house, they chew wiring, contaminate insulation, and are very hard to get rid of.</p>
+      <div class="listen-row"><button class="btn-listen" type="button">&#128266; Listen to this part</button></div>
+    </section>
+
+    <section class="card" data-read>
+      <h2><span class="tag">6</span>This is not normal &mdash; and not okay</h2>
+      <p>A dryer <strong>must</strong> vent to the outside of the building &mdash; never into a crawl space or an attic. That is not an opinion; it is the building code. The International Residential Code, section M1502, says dryer exhaust systems &ldquo;shall convey the moisture to the outdoors,&rdquo; that &ldquo;exhaust ducts shall terminate on the outside of the building,&rdquo; and that air &ldquo;shall not be exhausted into an attic, soffit, ridge vent or crawl space.&rdquo;</p>
+      <p>If anyone &mdash; a landlord, a handyman, anyone &mdash; tells you it is fine the way it is, they are wrong. Do not let this get brushed off. You are not being picky.</p>
+      <div class="listen-row"><button class="btn-listen" type="button">&#128266; Listen to this part</button></div>
+    </section>
+
+    <section class="card" data-read>
+      <h2><span class="tag">7</span>What to do about it</h2>
+      <p><strong>Get maintenance &mdash; or your landlord &mdash; on this as soon as possible.</strong> If you rent, fixing this is the landlord&rsquo;s responsibility, not yours.</p>
+      <p><strong>Take photos of it exactly as it is first</strong>, so there is a record of what was wrong before anyone touches it.</p>
+      <p>The fix itself &mdash; cleaning the piping, then reconnecting and sealing the duct so all the moisture goes outside &mdash; is <strong>not a big or expensive job</strong> for someone who can get under the house. The outside end needs a proper vent cap with a damper so cold air cannot blow back in.</p>
+      <p>Do not wait on this. The fix is small. The mold and the rot are the big deal &mdash; and they only get worse with time.</p>
+      <div class="listen-row"><button class="btn-listen" type="button">&#128266; Listen to this part</button></div>
+    </section>
+
+  </main>
+
+  <div class="sources">
+    <p><strong>Where the facts come from:</strong> fire statistics from the <a href="https://www.usfa.fema.gov/prevention/outreach/clothes-dryer.html">U.S. Fire Administration</a> (about 2,900 home dryer fires per year; failure to clean the leading cause at 34%); health effects of mold from the <a href="https://www.cdc.gov/mold-health/about/index.html">Centers for Disease Control and Prevention</a>; venting rules from the <a href="https://codes.iccsafe.org/content/IRC2021P2/chapter-15-exhaust-systems">International Residential Code, Chapter 15 (M1501&ndash;M1502)</a>.</p>
+    <p>This page explains a home-safety issue. It is not medical advice. If you are having breathing symptoms, please talk to your doctor.</p>
+  </div>
+
+  <p class="love">Made with love for Mom. Please get this fixed &mdash; I want you safe.</p>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var synth = window.speechSynthesis || null;
+  var statusEl = document.getElementById('readerStatus');
+  var btnAll = document.getElementById('btnReadAll');
+  var btnStop = document.getElementById('btnStop');
+  var cards = Array.prototype.slice.call(document.querySelectorAll('section.card[data-read]'));
+  var rate = 1;
+  var reading = false;
+  var currentUtter = null;
+
+  function say(text){ return statusEl.textContent = text; }
+
+  function pickVoice(){
+    if(!synth) return null;
+    var voices = synth.getVoices();
+    if(!voices.length) return null;
+    var us = voices.filter(function(v){ return v.lang && v.lang.toLowerCase().indexOf('en-us') === 0; });
+    var pool = us.length ? us : voices.filter(function(v){ return v.lang && v.lang.toLowerCase().indexOf('en') === 0; });
+    pool = pool.length ? pool : voices;
+    var named = pool.filter(function(v){ return /samantha|google us english|zira|aria|jenny|david|mark/i.test(v.name); });
+    return (named[0] || pool[0] || null);
+  }
+
+  function stopReading(silent){
+    reading = false;
+    if(synth){ try{ synth.cancel(); }catch(e){} }
+    cards.forEach(function(c){ c.classList.remove('speaking'); });
+    btnStop.disabled = true;
+    if(!silent) say('Stopped. Press \u201cRead everything to me\u201d to start again.');
+  }
+
+  function readCard(index, done){
+    if(index >= cards.length){
+      stopReading(true);
+      say('Finished reading the whole page.');
+      return;
+    }
+    var card = cards[index];
+    var heading = card.querySelector('h2').textContent.replace(/^\d+\s*/, 'Part ');
+    var body = Array.prototype.map.call(card.querySelectorAll('p'), function(p){ return p.textContent; }).join(' ');
+    var text = heading + '. ' + body;
+    var u = new SpeechSynthesisUtterance(text);
+    u.rate = rate;
+    var v = pickVoice();
+    if(v) u.voice = v;
+    currentUtter = u;
+    u.onstart = function(){
+      cards.forEach(function(c){ c.classList.remove('speaking'); });
+      card.classList.add('speaking');
+      card.scrollIntoView({behavior:'smooth', block:'center'});
+      say('Reading part ' + (index+1) + ' of ' + cards.length + ': ' + card.querySelector('h2').textContent.trim());
+    };
+    u.onend = function(){ if(reading) readCard(index+1, done); };
+    u.onerror = function(){ if(reading){ stopReading(true); say('The reader hit a problem and stopped. You can press play to try again.'); } };
+    synth.speak(u);
+  }
+
+  function readAll(){
+    if(!synth) return;
+    stopReading(true);
+    reading = true;
+    btnStop.disabled = false;
+    readCard(0);
+  }
+
+  function readSingle(card){
+    if(!synth) return;
+    stopReading(true);
+    reading = true;
+    btnStop.disabled = false;
+    var idx = cards.indexOf(card);
+    var heading = card.querySelector('h2').textContent.replace(/^\d+\s*/, 'Part ');
+    var body = Array.prototype.map.call(card.querySelectorAll('p'), function(p){ return p.textContent; }).join(' ');
+    var u = new SpeechSynthesisUtterance(heading + '. ' + body);
+    u.rate = rate;
+    var v = pickVoice();
+    if(v) u.voice = v;
+    currentUtter = u;
+    u.onstart = function(){
+      cards.forEach(function(c){ c.classList.remove('speaking'); });
+      card.classList.add('speaking');
+      say('Reading: ' + card.querySelector('h2').textContent.trim());
+    };
+    u.onend = function(){ stopReading(true); say('Finished that part.'); };
+    u.onerror = function(){ stopReading(true); };
+    synth.speak(u);
+  }
+
+  if(!synth){
+    document.getElementById('noSpeech').style.display = 'block';
+    btnAll.disabled = true;
+    btnStop.disabled = true;
+    Array.prototype.forEach.call(document.querySelectorAll('.btn-listen,.speed'), function(el){ el.style.display = 'none'; });
+    say('Read-aloud is not available in this browser.');
+  } else {
+    if(synth.getVoices().length === 0 && typeof synth.onvoiceschanged !== 'undefined'){
+      synth.onvoiceschanged = function(){ pickVoice(); };
+    }
+    btnAll.addEventListener('click', readAll);
+    btnStop.addEventListener('click', function(){ stopReading(false); });
+    cards.forEach(function(card){
+      var b = card.querySelector('.btn-listen');
+      if(b) b.addEventListener('click', function(){ readSingle(card); });
+    });
+    var speedBtns = Array.prototype.slice.call(document.querySelectorAll('.speed button'));
+    speedBtns.forEach(function(b){
+      b.addEventListener('click', function(){
+        rate = parseFloat(b.getAttribute('data-rate')) || 1;
+        speedBtns.forEach(function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+        say('Reading speed set to ' + b.textContent.trim() + '.');
+      });
+    });
+  }
+})();
+</script>
+</body>
+</html>
