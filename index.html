@@ -566,9 +566,9 @@
       titleText = cl.textContent.replace(/\s+/g,' ').trim();
     }
     var bodyEls = [];
-    Array.prototype.forEach.call(card.querySelectorAll('p, li, div.evidence'), function(el){
+    Array.prototype.forEach.call(card.querySelectorAll('p, li, h3, figcaption, div.evidence'), function(el){
       if(el.closest('.listen-row')) return;
-      if((el.tagName === 'LI' || el.tagName === 'P') && el.closest('div.evidence')) return;
+      if(el.tagName !== 'DIV' && el.closest('div.evidence')) return;
       var tx = el.textContent.replace(/\s+/g,' ').trim();
       if(tx) bodyEls.push(el);
     });
@@ -672,6 +672,7 @@
 
   function stopSpeech(){
     reading = false;
+    speakToken++;
     if(synth){ try{ synth.cancel(); }catch(e){} }
     cards.forEach(function(c){
       c.classList.remove('speaking');
@@ -698,7 +699,6 @@
     var v = pickVoice();
     if(v) u.voice = v;
     prep.utter = u;
-    var gotBoundary = false;
     u.onstart = function(){
       cards.forEach(function(c){ c.classList.remove('speaking'); });
       prep.card.classList.add('speaking');
@@ -706,22 +706,25 @@
       playStatus.textContent = 'Part ' + prep.num + ' of ' + cards.length;
       playTitle.textContent = titleOf(prep.card);
       try{ prep.card.scrollIntoView({block:'start', behavior:'smooth'}); }catch(e){}
-      prep.fallbackTimer = setTimeout(function(){
-        if(!gotBoundary && reading){
-          var wi = 2, stepMs = 60000 / (165 * rate);
-          prep.fallbackTimer = setInterval(function(){
-            if(!reading || paused) return;
-            if(wi < prep.spans.length){ setActive(prep, wi); wi++; }
-          }, stepMs);
-        } else { prep.fallbackTimer = null; }
-      }, 1200);
+      /* Hybrid driver: a steady timer advances the highlight, and boundary
+         events (on platforms that send them) snap it to the exact word.
+         The old either/or design broke whenever boundary events arrived
+         once and then stopped, which happens on several platforms. */
+      prep.wi = 2;
+      prep.lastBoundary = 0;
+      var stepMs = 60000 / (165 * rate);
+      prep.fallbackTimer = setInterval(function(){
+        if(!reading || paused) return;
+        if(prep.lastBoundary && (Date.now() - prep.lastBoundary) < 2500) return;
+        if(prep.wi < prep.spans.length){ setActive(prep, prep.wi); prep.wi++; }
+      }, stepMs);
     };
     u.onboundary = function(e){
       if(e.charIndex == null) return;
-      gotBoundary = true;
-      if(prep.fallbackTimer){ clearTimeout(prep.fallbackTimer); clearInterval(prep.fallbackTimer); prep.fallbackTimer = null; }
+      prep.lastBoundary = Date.now();
       var wi = findWord(prep, e.charIndex);
-      setActive(prep, wi >= 2 ? wi : null);
+      if(wi >= 2){ prep.wi = wi + 1; setActive(prep, wi); }
+      else setActive(prep, null);
     };
     u.onend = function(){
       clearUtter(prep);
@@ -732,25 +735,31 @@
       clearUtter(prep);
       if(wasReading) stopReading('The reader hit a problem and stopped. You can press play to try again.');
     };
-    try{ synth.speak(u); }catch(err){ stopReading('The reader could not start in this browser.'); }
+    /* iOS Safari sometimes drops speak() when it runs synchronously right
+       after cancel(), so start on the next tick with a token guard. */
+    var myToken = ++speakToken;
+    setTimeout(function(){
+      if(myToken !== speakToken || !reading) return;
+      try{ synth.speak(u); }catch(err){ stopReading('The reader could not start in this browser.'); }
+    }, 80);
+  }
+
+  function readAllFrom(i){
+    if(i >= cards.length){ stopReading('Finished reading the whole page.'); return; }
+    resumeFn = function(){ readAllFrom(i); };
+    startUtterance(prepareCard(cards[i]), i, function(){ if(reading) readAllFrom(i + 1); });
   }
 
   function readAll(){
     if(!synth) return;
     setBar('playing');
-    var i = 0;
-    (function next(){
-      if(i >= cards.length){
-        stopReading('Finished reading the whole page.');
-        return;
-      }
-      startUtterance(prepareCard(cards[i]), i, function(){ i++; next(); });
-    })();
+    readAllFrom(0);
   }
 
   function readSingle(card){
     if(!synth) return;
     setBar('playing');
+    resumeFn = function(){ readSingle(card); };
     startUtterance(prepareCard(card), cards.indexOf(card), function(){
       stopReading('Finished that part.');
     });
@@ -772,6 +781,12 @@
         playStatus.textContent = playStatus.textContent.replace(/^Paused \u2014 /, '');
         say('Resumed.');
         updateTransport();
+        setTimeout(function(){
+          if(synth.paused && reading && resumeFn){
+            /* iOS sometimes fails to resume: restart the current part instead */
+            resumeFn();
+          }
+        }, 700);
       } else {
         readAll();
       }
