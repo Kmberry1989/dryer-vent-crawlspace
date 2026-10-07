@@ -80,6 +80,14 @@
   #readerbar.is-mini .rb-mini{display:block}
   .rb-mini button{width:62px;height:62px;min-height:0;padding:0;border-radius:50%;
     background:var(--accent);color:#fff;font-size:1.7rem;line-height:1}
+  /* expanded sheet: full controls re-opened in place, above the page */
+  #readerbar.is-sheet{position:fixed;top:auto;bottom:1rem;left:1rem;right:1rem;width:auto;
+    border-radius:1rem;z-index:60;max-height:72vh;overflow:auto}
+  #readerbar.is-sheet .rb-full{display:flex}
+  #readerbar.is-sheet .rb-mini,#readerbar.is-sheet .rb-play{display:none}
+  #readerbar:not(.is-sheet) .btn-collapse{display:none}
+  .btn-collapse{background:#374151;color:#fff;flex:1 1 100%}
+  .rb-play .btn-expand{background:#374151;color:#fff;min-height:44px;padding:.5rem .9rem;font-size:1rem}
   /* playing: slim strip pinned to the top */
   #readerbar.is-playing{padding:.5rem .8rem;border-radius:0 0 .8rem .8rem}
   #readerbar.is-playing .rb-full,#readerbar.is-playing .rb-mini{display:none}
@@ -182,12 +190,14 @@
         <button type="button" data-rate="1.18" aria-pressed="false">Faster</button>
       </div>
       <div class="voicetip">Warmest voice on iPhone: download &ldquo;Ava&rdquo; in Settings &rarr; Accessibility &rarr; Spoken Content &rarr; Voices &rarr; English. She&rsquo;ll be picked automatically.</div>
+      <button class="btn-collapse" id="btnCollapse" type="button">&#10005; Collapse</button>
     </div>
     <div class="rb-mini"><button id="btnMini" type="button" aria-label="Open read-aloud controls">&#128266;</button></div>
     <div class="rb-play">
       <button class="btn-stop" id="btnStopPlay" type="button" aria-label="Stop reading">&#9632;</button>
       <div class="pstatus" id="playStatus"></div>
       <div class="ptitle" id="playTitle"></div>
+      <button class="btn-expand" id="btnExpand" type="button" aria-label="Show reading controls">&#10530;</button>
     </div>
   </div>
 
@@ -445,6 +455,8 @@
   var btnStop = document.getElementById('btnStop');
   var btnStopPlay = document.getElementById('btnStopPlay');
   var btnMini = document.getElementById('btnMini');
+  var btnCollapse = document.getElementById('btnCollapse');
+  var btnExpand = document.getElementById('btnExpand');
   var playStatus = document.getElementById('playStatus');
   var playTitle = document.getElementById('playTitle');
   var cards = Array.prototype.slice.call(document.querySelectorAll('section.card[data-read]'));
@@ -457,18 +469,24 @@
   var barState = 'full';
   function setBar(s){
     barState = s;
-    bar.classList.remove('is-mini','is-playing');
+    bar.classList.remove('is-mini','is-playing','is-sheet');
     if(s === 'mini') bar.classList.add('is-mini');
     if(s === 'playing') bar.classList.add('is-playing');
+    if(s === 'sheet') bar.classList.add('is-sheet');
   }
   function restBar(){
-    if(barState === 'playing') return;
+    if(reading) return;
     setBar(window.scrollY > 260 ? 'mini' : 'full');
   }
   window.addEventListener('scroll', restBar, {passive:true});
   btnMini.addEventListener('click', function(){
-    window.scrollTo({top:0, behavior:'smooth'});
-    setBar('full');
+    setBar('sheet');
+  });
+  btnCollapse.addEventListener('click', function(){
+    restBar();
+  });
+  btnExpand.addEventListener('click', function(){
+    setBar('sheet');
   });
 
   /* ---------- friendly voice ---------- */
@@ -638,7 +656,7 @@
     u.onstart = function(){
       cards.forEach(function(c){ c.classList.remove('speaking'); });
       prep.card.classList.add('speaking');
-      setBar('playing');
+      if(barState !== 'sheet') setBar('playing');
       playStatus.textContent = 'Part ' + prep.num + ' of ' + cards.length;
       playTitle.textContent = titleOf(prep.card);
       try{ prep.card.scrollIntoView({block:'start', behavior:'smooth'}); }catch(e){}
@@ -673,6 +691,7 @@
 
   function readAll(){
     if(!synth) return;
+    setBar('playing');
     var i = 0;
     (function next(){
       if(i >= cards.length){
@@ -685,6 +704,7 @@
 
   function readSingle(card){
     if(!synth) return;
+    setBar('playing');
     startUtterance(prepareCard(card), cards.indexOf(card), function(){
       stopReading('Finished that part.');
     });
